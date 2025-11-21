@@ -13,7 +13,7 @@
              
                 <div class="col-lg-12 col-md-12 order-1">
                   <div class="row">
-                    <div class="col-lg-3 col-md-3 col-3 mb-3">
+                    <div class="col-lg-3 col-md-6 col-6 mt-3 shadow-2">
                       <div class="card text-center">
                         <div class="card-body ">
                           <div class="card-title d-flex align-items-start justify-content-between">
@@ -27,7 +27,7 @@
                       </div>
                     </div>
 
-                      <div class="col-lg-3 col-md-3 col-3 mb-3">
+                      <div class="col-lg-3 col-md-6 col-6 mt-3 shadow-2">
                       <div class="card text-center">
                         <div class="card-body ">
                           <div class="card-title d-flex align-items-start justify-content-between">
@@ -41,7 +41,7 @@
                       </div>
                     </div>
 
-                     <div class="col-lg-3 col-md-3 col-3 mb-3">
+                     <div class="col-lg-3 col-md-6 col-6 mt-3 shadow-2">
                       <div class="card text-center">
                         <div class="card-body ">
                           <div class="card-title d-flex align-items-start justify-content-between">
@@ -55,7 +55,7 @@
                       </div>
                     </div>
 
-                     <div class="col-lg-3 col-md-3 col-3 mb-3">
+                     <div class="col-lg-3 col-md-6 col-6 mt-3 shadow-2">
                       <div class="card text-center">
                         <div class="card-body ">
                           <div class="card-title d-flex align-items-start justify-content-between">

@@ -16,7 +16,7 @@
 
           <ul class="menu-inner py-1">
             <!-- Dashboard -->
-            <li class="menu-item active">
+            <li class="menu-item @if (Request::segment(1) == 'dashboard' && Request::segment(2) == null) active @endif">
               <a href="#" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
@@ -25,8 +25,8 @@
             {{-- <li class="menu-header small text-uppercase">
               <span class="menu-header-text">Data Master</span>
             </li> --}}
-             <li class="menu-item ">
-              <a href="#" class="menu-link">
+             <li class="menu-item @if (Request::segment(1) == 'dashboard' && Request::segment(2) == 'prodi') active @endif" >
+              <a href="{{ route('dashboard.prodi') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-box"></i>
                 <div data-i18n="Analytics">Data Prodi</div>
               </a>

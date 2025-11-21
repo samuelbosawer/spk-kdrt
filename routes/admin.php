@@ -8,5 +8,8 @@ Route::group(['middleware' => ['auth']], function () {
 
         // Dashboard
         Route::get('/', [DashboardController::class, 'index'])->name('home');
+
+
+        require_once 'admin/prodi.php';
     });
 });

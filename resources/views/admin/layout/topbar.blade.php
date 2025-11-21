@@ -35,8 +35,8 @@
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-semibold d-block">John Doe</span>
-                            <small class="text-muted">Admin</small>
+                            <span class="fw-semibold d-block">{{Auth::user()->nama}}</span>
+                            <small class="text-muted">{{Auth::user()->getRoleNames()->first()}}</small>
                           </div>
                         </div>
                       </a>
@@ -65,11 +65,7 @@
                         <i class="bx bx-power-off me-2"></i>
                         <span class="align-middle">Keluar</span>
                       </a>
-
-
           
-
-
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf
                     </form>
