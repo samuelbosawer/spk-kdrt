@@ -17,7 +17,7 @@
           <ul class="menu-inner py-1">
             <!-- Dashboard -->
             <li class="menu-item @if (Request::segment(1) == 'dashboard' && Request::segment(2) == null) active @endif">
-              <a href="#" class="menu-link">
+              <a href="{{ route('dashboard.home') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
               </a>
@@ -32,15 +32,15 @@
               </a>
             </li>
 
-            <li class="menu-item ">
-              <a href="#" class="menu-link">
+            <li class="menu-item  @if (Request::segment(1) == 'dashboard' && Request::segment(2) == 'mahasiswa') active @endif ">
+              <a href="{{ route('dashboard.mahasiswa') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-user"></i>
                 <div data-i18n="Analytics">Data Mahasiswa</div>
               </a>
             </li>
 
-            <li class="menu-item ">
-              <a href="#" class="menu-link">
+            <li class="menu-item @if (Request::segment(1) == 'dashboard' && Request::segment(2) == 'dosen') active @endif">
+              <a href="{{ route('dashboard.dosen') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-user"></i>
                 <div data-i18n="Analytics">Data Dosen</div>
               </a>
@@ -48,19 +48,19 @@
 
           
 
-             <li class="menu-item">
+             <li class="menu-item @if (Request::segment(1) == 'dashboard' && Request::segment(2) == 'magang' || Request::segment(2) == 'form-magang') active open @endif">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-cube-alt"></i>
                 <div data-i18n="Misc">Data Magang</div>
               </a>
               <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="#" class="menu-link">
+                <li class="menu-item @if (Request::segment(1) == 'dashboard' && Request::segment(2) == 'magang') active @endif">
+                  <a href="{{ route('dashboard.magang') }}" class="menu-link">
                     <div data-i18n="Error">Magang</div>
                   </a>
                 </li>
-                <li class="menu-item">
-                  <a href="#" class="menu-link">
+                <li class="menu-item @if (Request::segment(1) == 'dashboard' && Request::segment(2) == 'form-magang') active @endif">
+                  <a href="{{ route('dashboard.form-magang') }}" class="menu-link">
                     <div data-i18n="Under Maintenance"> Magang Mahasiswa</div>
                   </a>
                 </li>
@@ -68,19 +68,19 @@
             </li>
 
            
-            <li class="menu-item">
+            <li class="menu-item @if (Request::segment(1) == 'dashboard' && Request::segment(2) == 'kkn' || Request::segment(2) == 'form-kkn') active open @endif">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-cube-alt"></i>
                 <div data-i18n="Misc">Data KKN</div>
               </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="#" class="menu-link">
+              <ul class="menu-sub ">
+                <li class="menu-item @if (Request::segment(1) == 'dashboard' && Request::segment(2) == 'kkn') active @endif">
+                  <a href="{{ route('dashboard.kkn') }}" class="menu-link  ">
                     <div data-i18n="Error">KKN</div>
                   </a>
                 </li>
-                <li class="menu-item">
-                  <a href="#" class="menu-link">
+                <li class="menu-item  @if (Request::segment(1) == 'dashboard' && Request::segment(2) == 'form-kkn') active @endif" >
+                  <a href="{{ route('dashboard.form-kkn') }}" class="menu-link ">
                     <div data-i18n="Under Maintenance"> KKN Mahasiswa</div>
                   </a>
                 </li>
@@ -90,15 +90,15 @@
 
 
 
-            <li class="menu-item ">
-              <a href="#" class="menu-link">
+            <li class="menu-item @if (Request::segment(1) == 'dashboard' && Request::segment(2) == 'proposal') active @endif ">
+              <a href="{{ route('dashboard.proposal') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-file"></i>
                 <div data-i18n="Analytics">Data Proposal </div>
               </a>
             </li>
 
-              <li class="menu-item ">
-              <a href="#" class="menu-link">
+              <li class="menu-item @if (Request::segment(1) == 'dashboard' && Request::segment(2) == 'skripsi') active @endif ">
+              <a href="{{ route('dashboard.skripsi') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-file"></i>
                 <div data-i18n="Analytics">Data Skripsi </div>
               </a>
@@ -107,8 +107,8 @@
           
 
 
-              <li class="menu-item ">
-              <a href="#" class="menu-link">
+              <li class="menu-item @if (Request::segment(1) == 'dashboard' && Request::segment(2) == 'pengumuman') active @endif">
+              <a href="{{ route('dashboard.pengumuman') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-news"></i>
                 <div data-i18n="Analytics">Data Pengumuman </div>
               </a>
