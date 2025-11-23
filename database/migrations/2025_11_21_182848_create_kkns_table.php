@@ -13,7 +13,11 @@ return new class extends Migration
     {
         Schema::create('kkns', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('nama_kkn');
+            $table->year('tahun')->nullable();   // ubah dari tanggal → tahun
+            $table->string('status')->nullable();
+            $table->string('sk')->nullable();
+            // tanpa timestamps
         });
     }
 

@@ -13,7 +13,17 @@ return new class extends Migration
     {
         Schema::create('proposals', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+           $table->string('judul');
+            $table->string('berkas')->nullable();
+            $table->string('status')->nullable();
+            $table->date('tgl')->nullable();
+            $table->unsignedBigInteger('id_mahasiswa');
+
+            // Relasi ke tabel mahasiswa
+            $table->foreign('id_mahasiswa')
+                  ->references('id')
+                  ->on('mahasiswas')
+                  ->onDelete('cascade');
         });
     }
 

@@ -13,7 +13,19 @@ return new class extends Migration
     {
         Schema::create('dosens', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('nama_depan');
+            $table->string('nama_belakang')->nullable();
+            $table->text('alamat')->nullable();
+            $table->string('no_hp')->nullable();
+            $table->enum('jenis_kelamin', ['L', 'P']);
+            $table->string('tempat_lahir')->nullable();
+            $table->date('tanggal_lahir')->nullable();
+            $table->unsignedBigInteger('user_id'); 
+
+            // Relasi ke tabel users
+            $table->foreign('user_id')
+                  ->references('id')->on('users')
+                  ->onDelete('cascade');
         });
     }
 

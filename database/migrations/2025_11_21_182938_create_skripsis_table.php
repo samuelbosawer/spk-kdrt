@@ -13,7 +13,16 @@ return new class extends Migration
     {
         Schema::create('skripsis', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('berkas')->nullable();
+            $table->unsignedBigInteger('id_proposal');
+            $table->string('status')->nullable();
+            $table->text('keterangan')->nullable();
+
+            // Relasi ke tabel proposal
+            $table->foreign('id_proposal')
+                ->references('id')
+                ->on('proposals')
+                ->onDelete('cascade');
         });
     }
 

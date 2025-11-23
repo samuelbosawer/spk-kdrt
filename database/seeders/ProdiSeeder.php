@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ProdiSeeder extends Seeder
 {
@@ -12,6 +13,14 @@ class ProdiSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        DB::table('prodis')->insert([
+            'nama'     => 'ILMU KOMUNIKASI UNIVERSITAS MUHAMMADIYAH PAPUA',
+            'visi'     => 'Menjadi Program Studi unggul dalam bidang Ilmu Komunikasi berbasis teknologi dan nilai keislaman.',
+            'misi'     => '1. Menyelenggarakan pendidikan berkualitas di bidang Ilmu Komunikasi. 
+                           2. Melaksanakan penelitian dan pengabdian kepada masyarakat.
+                           3. Menghasilkan lulusan yang kompeten dan berkarakter.',
+            'struktur' => 'Struktur organisasi Prodi Ilmu Komunikasi Universitas Muhammadiyah Papua.',
+            'sejarah'  => 'Program Studi Ilmu Komunikasi berdiri sebagai bagian dari pengembangan pendidikan tinggi di Universitas Muhammadiyah Papua.',
+        ]);
     }
 }

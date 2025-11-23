@@ -4,13 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Models\Prodi;
 class ProdiController extends Controller
 {
      // Tampilkan semua data
     public function index()
     {
-        return view('admin.crud_tamplate.index');
+        $data = Prodi::where('id',1)->first();
+        return view('admin.prodi.edit',compact('data'));
     }
 
     // Tampilkan form tambah data
@@ -34,7 +35,8 @@ class ProdiController extends Controller
     // Tampilkan form edit data
     public function edit($id)
     {
-         return view('admin.crud_tamplate.create-update-show');
+        $data = Prodi::where('id',1)->first();
+        return view('admin.prodi.edit',compact('data'));
     }
 
     // Update data

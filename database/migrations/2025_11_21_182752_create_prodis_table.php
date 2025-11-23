@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('prodis', function (Blueprint $table) {
             $table->id();
+            $table->string('nama');
+            $table->longText('visi')->nullable();
+            $table->longText('misi')->nullable();
+            $table->longText('struktur')->nullable();
+            $table->longText('sejarah')->nullable();
             $table->timestamps();
         });
     }

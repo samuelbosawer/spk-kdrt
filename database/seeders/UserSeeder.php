@@ -17,11 +17,11 @@ class UserSeeder extends Seeder
 
         $user = User::create([
             'nama' => 'Admin Prodi',
-            'alamat' => 'Sentani',
-            'no_hp' => '082198159714',
+            // 'alamat' => 'Sentani',
+            // 'no_hp' => '082198159714',
             'email' => 'adminprodi@master.com',
             'password' =>  bcrypt('adminprodi@master.com'),
-            'jenis_kelamin' => '',
+            // 'jenis_kelamin' => '',
 
         ]);
         $user->assignRole('adminprodi');
@@ -29,22 +29,22 @@ class UserSeeder extends Seeder
 
 
         $user = User::create([
-            'nama' => 'Mahasiswa 1',
-            'alamat' => 'Sentani',
-            'no_hp' => '082198159711',
+            'nama' => 'Samuel',
+            // 'alamat' => 'Sentani',
+            // 'no_hp' => '082198159711',
             'email' => 'mahasiswa1@gmail.com',
             'password' =>  bcrypt('mahasiswa1@gmail.com'),
-            'jenis_kelamin' => '',
+            // 'jenis_kelamin' => '',
 
         ]);
         $user->assignRole('mahasiswa');
           $user = User::create([
-            'nama' => 'Mahasiswa 2',
-            'alamat' => 'Sentani',
-            'no_hp' => '082198159712',
+            'nama' => 'Maria',
+            // 'alamat' => 'Sentani',
+            // 'no_hp' => '082198159712',
             'email' => 'mahasiswa2@gmail.com',
             'password' =>  bcrypt('mahasiswa2@gmail.com'),
-            'jenis_kelamin' => '',
+            // 'jenis_kelamin' => '',
 
         ]);
         $user->assignRole('mahasiswa');
@@ -52,13 +52,26 @@ class UserSeeder extends Seeder
 
         $user = User::create([
             'nama' => 'Samuel',
-            'alamat' => 'Sentani',
-            'no_hp' => '082198159721',
+            // 'alamat' => 'Sentani',
+            // 'no_hp' => '082198159721',
             'email' => 'samuel@gmail.com',
             'password' =>  bcrypt('samuel@gmail.com'),
-            'jenis_kelamin' => '',
+            // 'jenis_kelamin' => '',
+
+        ]);
+        $user->assignRole('mahasiswa');
+
+        $user = User::create([
+            'nama' => 'Hasrul',
+            // 'alamat' => 'Sentani',
+            // 'no_hp' => '082198159721',
+            'email' => 'hasrul@gmail.com',
+            'password' =>  bcrypt('hasrul@gmail.com'),
+            // 'jenis_kelamin' => '',
 
         ]);
         $user->assignRole('dosen');
+
+        
     }
 }

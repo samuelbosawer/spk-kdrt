@@ -13,7 +13,16 @@ return new class extends Migration
     {
         Schema::create('magangs', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('nama_magang')->nullable();
+            $table->date('tanggal')->nullable();
+            $table->string('semester')->nullable();
+            $table->string('sk')->nullable();     // No SK / file SK
+            $table->text('ket')->nullable();
+             $table->unsignedBigInteger('dosen_id'); // Relasi ke tabel dosens
+            $table->string('status')->nullable();
+            $table->foreign('dosen_id')
+                  ->references('id')->on('dosens')
+                  ->onDelete('cascade');      // Keterangan
         });
     }
 
