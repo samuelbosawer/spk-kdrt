@@ -22,7 +22,7 @@
                             {{-- <div class=" flex-shrink-0 mx-auto">
                             </div> --}}
                           </div>
-                          <h4 class="fw-semibold d-block mb-1 text-dark ">Program Studi  </h4>
+                          <h4 class="fw-semibold d-block mb-1 text-dark ">Pengaduan  </h4>
                           <h1>04</h1>
                           <a href="">Detail</a>
                         </div>
@@ -36,7 +36,7 @@
                             {{-- <div class=" flex-shrink-0 mx-auto">
                             </div> --}}
                           </div>
-                          <h4 class="fw-semibold d-block mb-1 text-dark ">Dosen </h4>
+                          <h4 class="fw-semibold d-block mb-1 text-dark ">Pendampingan </h4>
                           <h1>10</h1>
                           <a href="">Detail</a>
                         </div>
@@ -50,26 +50,14 @@
                             {{-- <div class=" flex-shrink-0 mx-auto">
                             </div> --}}
                           </div>
-                          <h4 class="fw-semibold d-block mb-1 text-dark ">Mahasiswa </h4>
+                          <h4 class="fw-semibold d-block mb-1 text-dark ">Masyarakat </h4>
                           <h1>10</h1>
                           <a href="">Detail</a>
                         </div>
                       </div>
                     </div>
 
-                     <div class="col-lg-3 col-md-6 col-6 mt-3 shadow-2">
-                      <div class="card text-center">
-                        <div class="card-body ">
-                          <div class="card-title d-flex align-items-start justify-content-between">
-                            {{-- <div class=" flex-shrink-0 mx-auto">
-                            </div> --}}
-                          </div>
-                          <h4 class="fw-semibold d-block mb-1 text-dark ">Berita </h4>
-                          <h1>10</h1>
-                          <a href="">Detail</a>
-                        </div>
-                      </div>
-                    </div>
+                   
 
 
 

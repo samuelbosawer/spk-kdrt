@@ -10,15 +10,16 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/', [DashboardController::class, 'index'])->name('home');
 
 
-        require_once 'admin/prodi.php'; 
-        require_once 'admin/mahasiswa.php';
-        require_once 'admin/dosen.php';
-        require_once 'admin/magang.php';
-        require_once 'admin/formmagang.php';
-        require_once 'admin/formkkn.php';
-        require_once 'admin/kkn.php';
-        require_once 'admin/proposal.php';
-        require_once 'admin/skripsi.php';
-        require_once 'admin/pengumuman.php';
+       
+        // require_once 'admin/dosen.php';
+        require_once 'admin/alternatif.php';
+        require_once 'admin/cabut.php';
+        require_once 'admin/konversi.php';
+        require_once 'admin/kriteria.php';
+        require_once 'admin/pendampingan.php';
+        require_once 'admin/pengaduan.php';
+        require_once 'admin/petugas.php';
+        require_once 'admin/rekomendasi.php';
+      
     });
 });

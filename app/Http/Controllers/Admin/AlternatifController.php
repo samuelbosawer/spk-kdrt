@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class DashboardController extends Controller
+class AlternatifController extends Controller
 {
      // Tampilkan semua data
     public function index()
@@ -48,4 +48,5 @@ class DashboardController extends Controller
     {
         //
     }
+
 }
