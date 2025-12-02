@@ -6,12 +6,12 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => ['auth']], function () {
 
     Route::controller(PendampinganController::class)->group(function(){
-        Route::get('[PendampinganCon', [PendampinganController::class, 'index'])->name('[PendampinganCon');
-        Route::get('[PendampinganCon/tambah', [PendampinganController::class, 'create'])->name('[PendampinganCon.tambah');
-        Route::get('[PendampinganCon/detail/{id}', [PendampinganController::class, 'show'])->name('[PendampinganCon.detail');
-        Route::delete('[PendampinganCon/{id}', [PendampinganController::class, 'destroy'])->name('[PendampinganCon.hapus');
-        Route::post('[PendampinganCon/store', [PendampinganController::class, 'store'])->name('[PendampinganCon.store');
-        Route::get('[PendampinganCon/{id}/ubah', [PendampinganController::class, 'edit'])->name('[PendampinganCon.ubah');
-        Route::put('[PendampinganCon/{id}', [PendampinganController::class, 'update'])->name('[PendampinganCon.update');
+        Route::get('pendampingan', [PendampinganController::class, 'index'])->name('pendampingan');
+        Route::get('pendampingan/tambah', [PendampinganController::class, 'create'])->name('pendampingan.tambah');
+        Route::get('pendampingan/detail/{id}', [PendampinganController::class, 'show'])->name('pendampingan.detail');
+        Route::delete('pendampingan/{id}', [PendampinganController::class, 'destroy'])->name('pendampingan.hapus');
+        Route::post('pendampingan/store', [PendampinganController::class, 'store'])->name('pendampingan.store');
+        Route::get('pendampingan/{id}/ubah', [PendampinganController::class, 'edit'])->name('pendampingan.ubah');
+        Route::put('pendampingan/{id}', [PendampinganController::class, 'update'])->name('pendampingan.update');
     });
 });

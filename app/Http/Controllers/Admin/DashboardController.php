@@ -10,7 +10,7 @@ class DashboardController extends Controller
      // Tampilkan semua data
     public function index()
     {
-        return view('admin.crud_tamplate.index');
+        return view('admin.dashboard.index');
     }
 
     // Tampilkan form tambah data

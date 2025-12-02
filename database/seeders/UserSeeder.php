@@ -22,52 +22,34 @@ class UserSeeder extends Seeder
         ]);
         $user->assignRole('admindinas');
 
-
-
-        $user = User::create([
-            'nama' => 'Samuel',
-            // 'alamat' => 'Sentani',
-            // 'no_hp' => '082198159711',
-            'email' => 'mahasiswa1@gmail.com',
-            'password' =>  bcrypt('mahasiswa1@gmail.com'),
-            // 'jenis_kelamin' => '',
+         $user = User::create([
+            'email' => 'petugas@master.com',
+            'password' =>  bcrypt('petugas@master.com'),
 
         ]);
-        $user->assignRole('mahasiswa');
+        $user->assignRole('petugas');
+
+        
+         $user = User::create([
+            'email' => 'kepaladinas@master.com',
+            'password' =>  bcrypt('kepaladinas@master.com'),
+
+        ]);
+
+        $user->assignRole('kepaladinas');
+
           $user = User::create([
-            'nama' => 'Maria',
-            // 'alamat' => 'Sentani',
-            // 'no_hp' => '082198159712',
-            'email' => 'mahasiswa2@gmail.com',
-            'password' =>  bcrypt('mahasiswa2@gmail.com'),
-            // 'jenis_kelamin' => '',
+            'email' => 'jiko@gmail.com',
+            'password' =>  bcrypt('jiko@gmail.com'),
 
         ]);
-        $user->assignRole('mahasiswa');
+        $user->assignRole('masyrakat');
+
+        
 
 
-        $user = User::create([
-            'nama' => 'Samuel',
-            // 'alamat' => 'Sentani',
-            // 'no_hp' => '082198159721',
-            'email' => 'samuel@gmail.com',
-            'password' =>  bcrypt('samuel@gmail.com'),
-            // 'jenis_kelamin' => '',
 
-        ]);
-        $user->assignRole('mahasiswa');
-
-        $user = User::create([
-            'nama' => 'Hasrul',
-            // 'alamat' => 'Sentani',
-            // 'no_hp' => '082198159721',
-            'email' => 'hasrul@gmail.com',
-            'password' =>  bcrypt('hasrul@gmail.com'),
-            // 'jenis_kelamin' => '',
-
-        ]);
-        $user->assignRole('dosen');
-
+       
         
     }
 }

@@ -1,17 +1,17 @@
 <?php
 
-use App\Http\Controllers\Admin\KonversiController;
+use App\Http\Controllers\Admin\KriteriaController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['auth']], function () {
 
-    Route::controller(KonversiController::class)->group(function(){
-        Route::get('[konversi', [konversiController::class, 'index'])->name('[konversi');
-        Route::get('[konversi/tambah', [konversiController::class, 'create'])->name('[konversi.tambah');
-        Route::get('[konversi/detail/{id}', [konversiController::class, 'show'])->name('[konversi.detail');
-        Route::delete('[konversi/{id}', [konversiController::class, 'destroy'])->name('[konversi.hapus');
-        Route::post('[konversi/store', [konversiController::class, 'store'])->name('[konversi.store');
-        Route::get('[konversi/{id}/ubah', [konversiController::class, 'edit'])->name('[konversi.ubah');
-        Route::put('[konversi/{id}', [konversiController::class, 'update'])->name('[konversi.update');
+    Route::controller(KriteriaController::class)->group(function(){
+        Route::get('kriteria', [KriteriaController::class, 'index'])->name('kriteria');
+        Route::get('kriteria/tambah', [KriteriaController::class, 'create'])->name('kriteria.tambah');
+        Route::get('kriteria/detail/{id}', [KriteriaController::class, 'show'])->name('kriteria.detail');
+        Route::delete('kriteria/{id}', [KriteriaController::class, 'destroy'])->name('kriteria.hapus');
+        Route::post('kriteria/store', [KriteriaController::class, 'store'])->name('kriteria.store');
+        Route::get('kriteria/{id}/ubah', [KriteriaController::class, 'edit'])->name('kriteria.ubah');
+        Route::put('kriteria/{id}', [KriteriaController::class, 'update'])->name('kriteria.update');
     });
 });

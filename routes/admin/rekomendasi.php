@@ -6,12 +6,12 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => ['auth']], function () {
 
     Route::controller(RekomendasiController::class)->group(function(){
-        Route::get('[petugas', [RekomendasiController::class, 'index'])->name('[petugas');
-        Route::get('[petugas/tambah', [RekomendasiController::class, 'create'])->name('[petugas.tambah');
-        Route::get('[petugas/detail/{id}', [RekomendasiController::class, 'show'])->name('[petugas.detail');
-        Route::delete('[petugas/{id}', [RekomendasiController::class, 'destroy'])->name('[petugas.hapus');
-        Route::post('[petugas/store', [RekomendasiController::class, 'store'])->name('[petugas.store');
-        Route::get('[petugas/{id}/ubah', [RekomendasiController::class, 'edit'])->name('[petugas.ubah');
-        Route::put('[petugas/{id}', [RekomendasiController::class, 'update'])->name('[petugas.update');
+        Route::get('rekomendasi', [RekomendasiController::class, 'index'])->name('rekomendasi');
+        Route::get('rekomendasi/tambah', [RekomendasiController::class, 'create'])->name('rekomendasi.tambah');
+        Route::get('rekomendasi/detail/{id}', [RekomendasiController::class, 'show'])->name('rekomendasi.detail');
+        Route::delete('rekomendasi/{id}', [RekomendasiController::class, 'destroy'])->name('rekomendasi.hapus');
+        Route::post('rekomendasi/store', [RekomendasiController::class, 'store'])->name('rekomendasi.store');
+        Route::get('rekomendasi/{id}/ubah', [RekomendasiController::class, 'edit'])->name('rekomendasi.ubah');
+        Route::put('rekomendasi/{id}', [RekomendasiController::class, 'update'])->name('rekomendasi.update');
     });
 });
