@@ -24,9 +24,9 @@ class PendampinganKasus extends Model
         return $this->belongsTo(PentugasPendamping::class, 'petugas_pendamping_id');
     }
 
-    public function PengaduanMasyrakat()
+    public function pengaduanMasyarakat()
     {
-        return $this->belongsTo(PengaduanMasyrakat::class, 'pengaduan_masyarakat_id');
+        return $this->belongsTo(PengaduanMasyarakat::class, 'pengaduan_masyarakat_id');
     }
 
     public function alternatif()
@@ -37,5 +37,10 @@ class PendampinganKasus extends Model
     public function kriteria()
     {
         return $this->belongsTo(Kriteria::class, 'kriteria_id');
+    }
+
+    public function rekomendasis()
+    {
+        return $this->hasMany(Rekomendasi::class, 'pendampingan_kasus_id');
     }
 }

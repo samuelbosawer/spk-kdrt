@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\PengaduanMasyrakat;
+use App\Models\PengaduanMasyarakat;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,7 +13,7 @@ class PengaduanMasyrakatSeeder extends Seeder
      */
     public function run(): void
     {
-        PengaduanMasyrakat::create([
+        PengaduanMasyarakat::create([
             'nama_pengadu' => 'Samuel Bosawer',
             'nama_korban' => 'Nama Korban',
             'nama_pelaku' => 'Nama Pelaku',

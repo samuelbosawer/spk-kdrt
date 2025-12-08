@@ -12,4 +12,9 @@ protected $fillable = [
     ];
 
     public $timestamps = false;
+
+    public function rekomendasis()
+{
+    return $this->hasMany(Rekomendasi::class);
+}
 }

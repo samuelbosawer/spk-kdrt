@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -20,6 +19,9 @@ class DatabaseSeeder extends Seeder
         $this->call(KriteriaSeeder::class);
         $this->call(KonversiSeeder::class);
         $this->call(PengaduanMasyrakatSeeder::class);
+        $this->call(PendampinganKasusSeeder::class);
+        $this->call(RekomendasiSeeder::class);
+        $this->call(CabutSeeder::class);
         
     }
 }

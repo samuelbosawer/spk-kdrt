@@ -4,9 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PengaduanMasyrakat extends Model
+class PengaduanMasyarakat extends Model
 {
-
     protected $table = 'pengaduan_masyarakats';
     
     public $timestamps = false;
@@ -29,4 +28,9 @@ class PengaduanMasyrakat extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function cabuts()
+{
+    return $this->hasMany(Cabut::class, 'pengaduan_masyarakat_id');
+}
 }
