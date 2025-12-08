@@ -15,5 +15,11 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(RoleSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(PentugasPendampingSeeder::class);
+        $this->call(AlternatifSeeder::class);
+        $this->call(KriteriaSeeder::class);
+        $this->call(KonversiSeeder::class);
+        $this->call(PengaduanMasyrakatSeeder::class);
+        
     }
 }
