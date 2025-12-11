@@ -14,12 +14,13 @@ class PengaduanMasyrakatSeeder extends Seeder
     public function run(): void
     {
         PengaduanMasyarakat::create([
-            'nama_pengadu' => 'Samuel Bosawer',
-            'nama_korban' => 'Nama Korban',
-            'nama_pelaku' => 'Nama Pelaku',
-            'jk_korban' => 'Pria',
-            'lokasi_kejadian' => 'Jayapura, Papua',
-            'deskripsi_singkat' => 'Kejadian singkat yang dilaporkan.',
+            'judul_pengaduan' => 'KDRT',
+            'nama_pengadu' => 'Mira Jikwa',
+            'nama_korban' => 'Mira Jikwa',
+            'nama_pelaku' => 'Garik Kogoya',
+            'jk_korban' => 'Wanita',
+            'lokasi_kejadian' => 'Timika, Papua',
+            'deskripsi_singkat' => 'Pemukulan dibagian kepala belakang',
             'bukti_gambar' => '',
             'tanggal_kejadian' => '2025-01-01',
             'no_hp' => '081234567890',

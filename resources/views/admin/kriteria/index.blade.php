@@ -16,7 +16,7 @@
                   <div class="row">
                     <div class="col-6 my-3">
                     
-                      <a class="btn btn-primary" href="{{ route('dashboard.kriteria.tambah') }}">Tambah Data KKN <i class="bx bx-plus me-1"></i></a>
+                      <a class="btn btn-primary" href="{{ route('dashboard.kriteria.tambah') }}">Tambah Data Kriteria <i class="bx bx-plus me-1"></i></a>
                     </div>
                     <div class="col-6 my-3">
                       @include('admin.layout.search')

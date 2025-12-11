@@ -14,6 +14,7 @@ class PengaduanMasyarakat extends Model
         'id_pengadu',
         'nama_pengadu',
         'nama_korban',
+        'judul_pengaduan',
         'nama_pelaku',
         'jk_korban',
         'lokasi_kejadian',
