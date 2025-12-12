@@ -8,8 +8,8 @@
             <div class="col-12">
                 <div class="row">
                     <div class="card mb-4">
-                        <h5 class="card-header fw-bolder"><i class="menu-icon tf-icons bx bx-box"></i>
-                            {{ $judul ?? 'TAMBAH DATA PENGADUAN' }} </h5>
+                        <h5 class="card-header fw-bolder"><i class="menu-icon tf-icons bx bx-file"></i>
+                            {{ $judul ?? 'TAMBAH DATA PETUGAS' }} </h5>
                         <div class="card-body">
 
                             @if (Request::segment(4) == 'ubah' && Request::segment(2) == 'pengaduan')

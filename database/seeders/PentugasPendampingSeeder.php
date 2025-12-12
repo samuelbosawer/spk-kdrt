@@ -15,9 +15,9 @@ class PentugasPendampingSeeder extends Seeder
     {
        PentugasPendamping::create([
             'nip' => '1234567890',
-            'nama_petugas' => 'Samuel Bosawer',
-            'jk' => 'L',
-            'alamat' => 'Jayapura, Papua',
+            'nama_petugas' => 'William Mote',
+            'jk' => 'Pria',
+            'alamat' => 'Timika, Papua Tengah',
             'no_hp' => '081234567890',
             'user_id' => 2,
         ]);

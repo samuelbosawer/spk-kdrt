@@ -22,10 +22,11 @@ return new class extends Migration
             $table->string('penilaian_kasus');
 
             // Foreign Keys
-            $table->foreign('petugas_pendamping_id')->references('id')->on('petugas_pendampings');
+            $table->foreign('petugas_pendamping_id')->references('id')->on('petugas_pendampings')->onDelete('cascade');;
             $table->foreign('pengaduan_masyarakat_id')->references('id')->on('pengaduan_masyarakats');
             $table->foreign('alternatif_id')->references('id')->on('alternatifs');
             $table->foreign('kriteria_id')->references('id')->on('kriterias');
+
         });
     }
 

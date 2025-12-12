@@ -19,11 +19,11 @@ return new class extends Migration
             $table->string('alasan');
 
             // Relasi
-            $table->foreign('pengaduan_masyarakat_id')
-                ->references('id')->on('pengaduan_masyarakats');
+            // $table->foreign('pengaduan_masyarakat_id')
+            //     ->references('id')->on('pengaduan_masyarakats');
 
-            $table->foreign('rekomendasi_id')
-                ->references('id')->on('rekomendasis');
+            // $table->foreign('rekomendasi_id')
+            //     ->references('id')->on('rekomendasis');
         });
     }
 

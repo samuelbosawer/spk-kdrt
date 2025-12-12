@@ -25,6 +25,10 @@ return new class extends Migration
                   ->on('pendampingan_kasuses')
                   ->onDelete('cascade');
 
+   
+
+
+
             $table->foreign('konversi_id')
                   ->references('id')
                   ->on('konversis')
