@@ -10,13 +10,13 @@ class RekomendasiController extends Controller
      // Tampilkan semua data
     public function index()
     {
-        return view('admin.crud_tamplate.index');
+        return view('admin.rekomendasi.index');
     }
 
     // Tampilkan form tambah data
     public function create()
     {
-        return view('admin.crud_tamplate.create-update-show');
+        return view('admin.rekomendasi.create-update-show');
     }
 
     // Simpan data baru
@@ -28,13 +28,13 @@ class RekomendasiController extends Controller
     // Tampilkan detail satu data
     public function show($id)
     {
-         return view('admin.crud_tamplate.create-update-show');
+        return view('admin.rekomendasi.create-update-show');
     }
 
     // Tampilkan form edit data
     public function edit($id)
     {
-         return view('admin.crud_tamplate.create-update-show');
+        return view('admin.rekomendasi.create-update-show');
     }
 
     // Update data

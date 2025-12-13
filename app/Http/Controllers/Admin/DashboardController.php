@@ -3,6 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Alternatif;
+use App\Models\Kriteria;
+use App\Models\PengaduanMasyarakat;
+use App\Models\PentugasPendamping;
+use App\Models\Rekomendasi;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -10,7 +15,15 @@ class DashboardController extends Controller
      // Tampilkan semua data
     public function index()
     {
-        return view('admin.dashboard.index');
+        $kriteria = Kriteria::count();
+        $alternatif = Alternatif::count();
+        $pengaduan = PengaduanMasyarakat::count();
+        $petugas = PentugasPendamping::count();
+        $rekomendasi = Rekomendasi::count();
+        $pendampingan = PengaduanMasyarakat::count();
+
+
+        return view('admin.dashboard.index',compact('kriteria','alternatif','pengaduan','petugas', 'rekomendasi','pendampingan'));
     }
 
     // Tampilkan form tambah data
