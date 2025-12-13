@@ -27,7 +27,7 @@
                             <tr class="bg-primary ">
                                 <th class="text-white text-center  p-3 fw-bolder" width="10px" hight="10px">No</th>
                                 <th class="text-white text-center  p-3 fw-bolder">NIP</th>
-                                <th class="text-white text-center  p-3 fw-bolder">nama Tetugas</th>
+                                <th class="text-white text-center  p-3 fw-bolder">Nama Petugas</th>
                                 <th class="text-white text-center  p-3 fw-bolder">Pengadu</th>
                                 <th class="text-white text-center  p-3 fw-bolder">Pelaku</th>
                                 <th class="text-white text-center  p-3 fw-bolder"></th>

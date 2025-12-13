@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('pendampingan_kasuses', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('tanggal_pendampingan');
+            $table->string('tanggal_pendampingan');
             $table->unsignedBigInteger('petugas_pendamping_id');
             $table->unsignedBigInteger('pengaduan_masyarakat_id');
             $table->unsignedBigInteger('alternatif_id');
