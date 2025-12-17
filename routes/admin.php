@@ -20,6 +20,7 @@ Route::group(['middleware' => ['auth']], function () {
         require_once 'admin/pengaduan.php';
         require_once 'admin/petugas.php';
         require_once 'admin/rekomendasi.php';
+        require_once 'admin/nilai.php';
       
     });
 });

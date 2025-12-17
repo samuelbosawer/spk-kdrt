@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Alternatif;
+use App\Models\Konversi;
+use App\Models\Kriteria;
+use App\Models\PengaduanMasyarakat;
 use Illuminate\Http\Request;
 
 class RekomendasiController extends Controller
@@ -10,7 +14,11 @@ class RekomendasiController extends Controller
      // Tampilkan semua data
     public function index()
     {
-        return view('admin.rekomendasi.index');
+        $kriteria = Kriteria::get();
+        $alternatif = Alternatif::orderBy('id')->get();
+        $nilai = PengaduanMasyarakat::with('nilaiKasus')->get();
+        $konversi = Konversi::get();
+        return view('admin.rekomendasi.index', compact('kriteria','alternatif','nilai','konversi'));
     }
 
     // Tampilkan form tambah data

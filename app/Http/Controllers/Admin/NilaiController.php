@@ -1,0 +1,81 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Models\Alternatif;
+use App\Models\PengaduanMasyarakat;
+use Illuminate\Console\View\Components\Alert;
+use Illuminate\Http\Request;
+
+class NilaiController extends Controller
+{
+    // Tampilkan semua data
+    public function index(Request $request)
+    {
+        
+       $alternatifs = Alternatif::orderBy('id')->get();
+        $datas = PengaduanMasyarakat::with('nilaiKasus')->get();
+        return view('admin.nilai.index', compact('datas', 'alternatifs'));
+    }
+
+    // Tampilkan form tambah data
+    public function create()
+    {
+        return view('admin.alternatif.create-update-show');
+    }
+
+    // Simpan data baru
+    public function store(Request $request)
+    {
+         $validated = $request->validate([
+            'alternatif'     => 'required|string',
+            'nilai_ideal_alternatif'         => 'required|numeric',
+        ]);
+
+
+        Alternatif::create($validated);
+        Alert::success('Berhasil', 'Data berhasil ditambahkan');
+        return redirect()->route('dashboard.alternatif');
+    }
+
+    // Tampilkan detail satu data
+    public function show($id)
+    {
+        $judul = 'DETAIL ALTERNATIF';
+        $data = Alternatif::where('id',$id)->first();
+        return view('admin.alternatif.create-update-show',compact('judul','data'));
+    }
+
+    // Tampilkan form edit data
+    public function edit($id)
+    {
+         $judul = 'UBAH ALTERNATIF';
+         $data = Alternatif::where('id',$id)->first();
+         return view('admin.alternatif.create-update-show',compact('judul','data'));
+    }
+
+    // Update data
+    public function update(Request $request, $id)
+    {
+        $data = Alternatif::findOrFail($id);
+        $validated = $request->validate([
+            'alternatif'     => 'required|string',
+            'nilai_ideal_alternatif'         => 'required|numeric',
+        ]);
+
+        $data->update($validated);
+        Alert::success('Berhasil', 'Update data berhasil');
+        return redirect()->route('dashboard.alternatif');
+    }
+
+    // Hapus data
+    public function destroy($id)
+    {
+        $data = Alternatif::findOrFail($id);
+        $data->delete();
+        Alert::success('Berhasil', 'Data berhasil dihapus');
+        return redirect()->route('dashboard.alternatif');
+    }
+
+}

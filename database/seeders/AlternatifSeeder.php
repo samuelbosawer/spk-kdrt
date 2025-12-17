@@ -20,10 +20,17 @@ class AlternatifSeeder extends Seeder
             'Kekeluargaan',
         ];
 
-        foreach ($data as $item) {
+        $nilai = [
+            3,
+            4,
+            2,
+            1,
+        ];
+
+        foreach ($data as $key => $item) {
             Alternatif::create([
                 'alternatif' => $item,
-                'nilai_ideal_alternatif' => 0.5,
+                'nilai_ideal_alternatif' => $nilai[$key],
             ]);
         }
     }

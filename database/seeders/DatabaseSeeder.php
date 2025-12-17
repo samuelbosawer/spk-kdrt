@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PendampinganKasusSeeder::class);
         $this->call(RekomendasiSeeder::class);
         $this->call(CabutSeeder::class);
+        $this->call(NilaiKasusSeeder::class);
         
     }
 }

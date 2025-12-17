@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class PengaduanMasyarakat extends Model
 {
     protected $table = 'pengaduan_masyarakats';
-    
+
     public $timestamps = false;
 
     protected $fillable = [
@@ -31,7 +31,13 @@ class PengaduanMasyarakat extends Model
     }
 
     public function cabuts()
-{
-    return $this->hasMany(Cabut::class, 'pengaduan_masyarakat_id');
-}
+    {
+        return $this->hasMany(Cabut::class, 'pengaduan_masyarakat_id');
+    }
+
+
+    public function nilaiKasus()
+    {
+        return $this->hasMany(NilaiKasus::class, 'pengaduan_masyarakat_id');
+    }
 }

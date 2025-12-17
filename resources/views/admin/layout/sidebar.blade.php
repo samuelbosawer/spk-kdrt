@@ -47,6 +47,21 @@
                 <div data-i18n="Analytics">Pengaduan</div>
               </a>
             </li>
+
+             <li class="menu-item @if (Request::segment(1) == 'dashboard' && Request::segment(2) == 'pengaduan') active @endif">
+              <a href="{{ route('dashboard.pengaduan') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-file"></i>
+                <div data-i18n="Analytics">Pengaduan</div>
+              </a>
+            </li>
+
+             <li class="menu-item @if (Request::segment(1) == 'dashboard' && Request::segment(2) == 'nilai') active @endif">
+              <a href="{{ route('dashboard.nilai') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-file"></i>
+                <div data-i18n="Analytics"> Nilai Pengaduan</div>
+              </a>
+            </li>
+           
            
 
              <li class="menu-item @if (Request::segment(1) == 'dashboard' && Request::segment(2) == 'petugas') active @endif">
