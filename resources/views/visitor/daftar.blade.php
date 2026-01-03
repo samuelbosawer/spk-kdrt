@@ -54,7 +54,6 @@
   </head>
 
   <body>
-    @include('sweetalert::alert')
     <!-- Content -->
 
     <div class="container-xxl">
@@ -70,9 +69,9 @@
                 </div>
               <!-- /Logo -->
               {{-- <h4 class="mb-2 mt-5 text-center">Selamat Datang</h4> --}}
-              <p class="mb-4 text-center">Silakan masuk ke akun Anda untuk mengakses Sistem Pendukung Keputusan KDRT</p>
+              <h4 class="mb-4 text-center">Daftar Akun Anda</h4>
 
-              <form id="formAuthentication" class="mb-3"  method="POST" action="{{ route('login') }}">
+              <form id="formAuthentication" class="mb-3"  method="POST" action="{{ route('register') }}">
                  @csrf
                 <div class="mb-3">
                   <label for="email" class="form-label">Email </label>
@@ -115,27 +114,42 @@
                                     </div>
                                 @enderror
                 </div>
-                <div class="mb-3">
-                  <div class="form-check">
 
-                    <div class="d-flex justify-content-between">
-                      <div class="">
-                          <input class="form-check-input" type="checkbox" name="remember" id="remember-me"   {{ old('remember') ? 'checked' : '' }}  />
-                          <label class="form-check-label" for="remember-me"> Ingat Saya </label>
-                      </div>
-                      <div class="">
-                         Belum punya akun ? <a href="{{ route('daftar') }}">Daftar</a>
-                      </div>
-                    </div>
-                  
-
-                   
+                 <div class="mb-3 form-password-toggle">
+                  <div class="d-flex justify-content-between">
+                    <label class="form-label" for="password">Ulangi Password</label>
+                    
                   </div>
+                  <div class="input-group input-group-merge">
+                    <input
+                      type="password"
+                      id="password_confirmation"
+                      class="form-control"
+                      name="password_confirmation"
+                      placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                      aria-describedby="password_confirmation"
+                    />
+                   
+                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+
+                  
+                  </div>
+                     @error('password_confirmation')
+                                    <div class="text-danger">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                 </div>
 
-                
                 <div class="mb-3">
-                  <button class="btn btn-primary d-grid w-100" type="submit">Masuk</button>
+                 
+
+                   
+                         Sudah punya akun ? <a href="{{ route('login') }}">Login</a>
+                </div>
+              
+                <div class="mb-3">
+                  <button class="btn btn-primary d-grid w-100" type="submit">Daftar</button>
                 </div>
               </form>
 

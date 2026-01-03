@@ -59,7 +59,7 @@
 
 
                                                 <a class="dropdown-item"
-                                                    href="{{ route('dashboard.pendampingan', $data->id) }}"><i
+                                                    href="{{ route('dashboard.pendampingan.ubah', $data->id) }}"><i
                                                         class="bx bx-edit-alt me-1"></i> Ubah</a>
 
                                                 <form action="{{ route('dashboard.pendampingan.hapus', $data->id) }}"

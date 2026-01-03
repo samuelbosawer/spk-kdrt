@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Konversi extends Model
 {
-protected $fillable = [
+    protected $fillable = [
         'nilai_gap',
         'bobot_w',
     ];
@@ -14,7 +14,7 @@ protected $fillable = [
     public $timestamps = false;
 
     public function rekomendasis()
-{
-    return $this->hasMany(Rekomendasi::class);
-}
+    {
+        return $this->hasMany(Rekomendasi::class);
+    }
 }

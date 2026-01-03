@@ -21,51 +21,81 @@
                         </div>
 
 
-                             <table class="table table-bordered">
-                        <thead>
-                            <tr class="bg-primary">
-                                <th class="text-white text-center">Kasus</th>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr class="bg-primary">
+                                    <th class="text-white text-center">Kasus</th>
 
-                                @foreach ($alternatifs as $alt)
-                                    <th class="text-white text-center">
-                                        C{{ $alt->id }}
-                                    </th>
-                                @endforeach
+                                    @foreach ($alternatifs as $alt)
+                                        <th class="text-white text-center">
+                                            C{{ $alt->id }}
+                                        </th>
+                                    @endforeach
 
-                                <th class="text-white text-center">Aksi</th>
-                            </tr>
-                        </thead>
-                     
-                        @forelse($datas as $data)
-                            <tr>
-                               
+                                    <th class="text-white text-center">Aksi</th>
+                                </tr>
+                            </thead>
 
-                                {{-- Kode Kasus --}}
-                                <td class="fw-bold text-center">
-                                    K{{ $data->id }}
-                                </td>
+                            @forelse($datas as $data)
+                                <tr>
 
-                                {{-- Loop Alternatif (C1–C4) --}}
-                                @foreach ($alternatifs as $alt)
-                                    <td class="text-center">
-                                        {{ optional($data->nilaiKasus->where('alternatif_id', $alt->id)->first())->nilai_kasus ?? '-' }}
+
+                                    {{-- Kode Kasus --}}
+                                    <td class="fw-bold text-center">
+                                        K{{ $data->id }}
                                     </td>
-                                @endforeach
 
-                                {{-- Aksi --}}
-                                <td class="text-center">
-                                    {{-- <a href="#" class="btn btn-sm btn-info"></a> --}}
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="{{ 3 + $alternatifs->count() }}" class="text-center">
-                                    Data tidak ditemukan
-                                </td>
-                            </tr>
-                        @endforelse
-                        </tbody>
-                    </table>
+                                    {{-- Loop Alternatif (C1–C4) --}}
+                                    @foreach ($alternatifs as $alt)
+                                        <td class="text-center">
+                                            {{ optional($data->nilaiKasus->where('alternatif_id', $alt->id)->first())->nilai_kasus ?? '-' }}
+                                        </td>
+                                    @endforeach
+                                    @php
+                                        $nilai = $data->nilaiKasus->where('alternatif_id', $alt->id)->first();
+                                    @endphp
+
+                                    {{-- Aksi --}}
+                                    <td class="text-center">
+                                        <div class="dropdown">
+                                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                data-bs-toggle="dropdown">
+                                                <i class="bx bx-dots-vertical-rounded"></i>
+                                            </button>
+                                            <div class="dropdown-menu">
+
+
+                                                {{-- HAPUS --}}
+                                                @if ($nilai)
+                                                    <form
+                                                        action="{{ route('dashboard.nilai.hapus', $nilai->pengaduan_masyarakat_id) }}"
+                                                        method="POST"
+                                                        onsubmit="return confirm('Yakin ingin menghapus data ini?');">
+                                                        @csrf
+                                                        @method('DELETE')
+
+                                                        <button type="submit" class="dropdown-item text-danger">
+                                                            <i class="bx bx-trash me-1"></i> Hapus
+                                                        </button>
+                                                    </form>
+                                                @endif
+
+                                            </div>
+
+                                        </div>
+
+                                    </td>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="{{ 3 + $alternatifs->count() }}" class="text-center">
+                                        Data tidak ditemukan
+                                    </td>
+                                </tr>
+                            @endforelse
+                            </tbody>
+                        </table>
                     </div>
 
 

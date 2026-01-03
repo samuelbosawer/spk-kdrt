@@ -44,7 +44,7 @@ class UserSeeder extends Seeder
             'password' =>  bcrypt('mira@gmail.com'),
 
         ]);
-        $user->assignRole('masyrakat');
+        $user->assignRole('masyarakat');
 
 
          $user = User::create([
@@ -52,7 +52,7 @@ class UserSeeder extends Seeder
             'password' =>  bcrypt('angel@gmail.com'),
 
         ]);
-        $user->assignRole('masyrakat');
+        $user->assignRole('masyarakat');
 
 
            $user = User::create([
@@ -60,7 +60,7 @@ class UserSeeder extends Seeder
             'password' =>  bcrypt('julia@gmail.com'),
 
         ]);
-        $user->assignRole('masyrakat');
+        $user->assignRole('masyarakat');
 
 
         
@@ -69,7 +69,7 @@ class UserSeeder extends Seeder
             'password' =>  bcrypt('maria@gmail.com'),
 
         ]);
-        $user->assignRole('masyrakat');
+        $user->assignRole('masyarakat');
 
 
         $user = User::create([
@@ -77,7 +77,7 @@ class UserSeeder extends Seeder
             'password' =>  bcrypt('melan@gmail.com'),
 
         ]);
-        $user->assignRole('masyrakat');
+        $user->assignRole('masyarakat');
 
 
         

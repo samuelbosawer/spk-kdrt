@@ -13,7 +13,7 @@ Route::group(['middleware' => ['auth']], function () {
        
         // require_once 'admin/dosen.php';
         require_once 'admin/alternatif.php';
-        require_once 'admin/cabut.php';
+        require_once 'admin/pengajuan.php';
         require_once 'admin/konversi.php';
         require_once 'admin/kriteria.php';
         require_once 'admin/pendampingan.php';

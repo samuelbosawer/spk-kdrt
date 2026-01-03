@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Alternatif;
+use App\Models\NilaiKasus;
 use App\Models\PengaduanMasyarakat;
-use Illuminate\Console\View\Components\Alert;
+use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Http\Request;
 
 class NilaiController extends Controller
@@ -13,69 +14,69 @@ class NilaiController extends Controller
     // Tampilkan semua data
     public function index(Request $request)
     {
-        
-       $alternatifs = Alternatif::orderBy('id')->get();
+
+        $alternatifs = Alternatif::orderBy('id')->get();
         $datas = PengaduanMasyarakat::with('nilaiKasus')->get();
+
         return view('admin.nilai.index', compact('datas', 'alternatifs'));
     }
 
     // Tampilkan form tambah data
     public function create()
     {
-        return view('admin.alternatif.create-update-show');
+        $alternatifs = Alternatif::orderBy('id')->get();
+        $pengaduan = PengaduanMasyarakat::get();
+
+        return view('admin.nilai.create-update-show', compact('alternatifs', 'pengaduan'));
     }
 
     // Simpan data baru
     public function store(Request $request)
     {
-         $validated = $request->validate([
-            'alternatif'     => 'required|string',
-            'nilai_ideal_alternatif'         => 'required|numeric',
+        $request->validate([
+            'pengaduan_masyarakat_id' => 'numeric|required|unique:nilai_kasuses,pengaduan_masyarakat_id',
+            'alternatif_id'           => 'required|array',
+            'nilai_kasus'             => 'required|array',
+            'nilai_kasus.*'           => 'required',
         ]);
 
+        foreach ($request->alternatif_id as $index => $alternatifId) {
+            NilaiKasus::create([
+                'pengaduan_masyarakat_id'   => $request->pengaduan_masyarakat_id,
+                'alternatif_id'             => $alternatifId,
+                'nilai_kasus'           => $request->nilai_kasus[$index],
+            ]);
+        };
 
-        Alternatif::create($validated);
+
         Alert::success('Berhasil', 'Data berhasil ditambahkan');
-        return redirect()->route('dashboard.alternatif');
+        return redirect()->route('dashboard.nilai');
     }
 
-    // Tampilkan detail satu data
     public function show($id)
     {
-        $judul = 'DETAIL ALTERNATIF';
-        $data = Alternatif::where('id',$id)->first();
-        return view('admin.alternatif.create-update-show',compact('judul','data'));
+        return redirect()->route('dashboard.nilai');
+
     }
 
     // Tampilkan form edit data
     public function edit($id)
     {
-         $judul = 'UBAH ALTERNATIF';
-         $data = Alternatif::where('id',$id)->first();
-         return view('admin.alternatif.create-update-show',compact('judul','data'));
+        
     }
 
     // Update data
     public function update(Request $request, $id)
     {
-        $data = Alternatif::findOrFail($id);
-        $validated = $request->validate([
-            'alternatif'     => 'required|string',
-            'nilai_ideal_alternatif'         => 'required|numeric',
-        ]);
-
-        $data->update($validated);
-        Alert::success('Berhasil', 'Update data berhasil');
-        return redirect()->route('dashboard.alternatif');
+        return redirect()->route('dashboard.nilai');
     }
 
     // Hapus data
     public function destroy($id)
     {
-        $data = Alternatif::findOrFail($id);
+        $data = NilaiKasus::where('pengaduan_masyarakat_id', $id);
         $data->delete();
         Alert::success('Berhasil', 'Data berhasil dihapus');
-        return redirect()->route('dashboard.alternatif');
+        return redirect()->route('dashboard.nilai');
     }
-
 }

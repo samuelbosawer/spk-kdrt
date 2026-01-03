@@ -29,7 +29,7 @@ class RoleSeeder extends Seeder
        ]);
 
         $role = Role::create([
-        "name" => "masyrakat",
+        "name" => "masyarakat",
         'guard_name' => 'web',
        ]);
 

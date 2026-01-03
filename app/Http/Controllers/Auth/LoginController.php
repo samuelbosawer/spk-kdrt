@@ -41,9 +41,9 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-        if($user->HasRole('admindinas') || $user->HasRole('kepaladinas') || $user->HasRole('petugas') || $user->HasRole('masyrakat') ){
+        if($user->HasRole('admindinas') || $user->HasRole('kepaladinas') || $user->HasRole('petugas') || $user->HasRole('masyarakat') ){
             return redirect('/dashboard');
-        };
+        }
 
     }
 }

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>SPK KDRT </title>
+    <title>SI KDRT </title>
     <meta name="description" content="">
     <meta name="keywords" content="">
 
@@ -50,7 +50,7 @@
                 <img src="{{ asset('assets/img/logo.png') }}" alt="">
 
 
-                <h1 class="sitename">SPK KDRT</h1>
+                <h1 class="sitename">SI KDRT</h1>
             </a>
 
             <nav id="navmenu" class="navmenu">
@@ -58,10 +58,10 @@
                     <li><a href="/">Beranda</a></li>
                     <li><a href="#tentang">Tentang</a></li>
                     <li><a href="#layanan">Layanan</a></li>
-                    <li><a href="#pengaduan">Pengaduan</a></li>
+                    <li><a href="{{ route('dashboard.pengaduan.tambah') }}">Pengaduan</a></li>
                     <li><a href="#kontak">Kontak</a></li>
                     <li><a href="{{ route('login') }}">Login</a></li>
-                    <li><a href="/daftar">Daftar</a></li>
+                    <li><a href="{{ route('daftar') }}">Daftar</a></li>
 
                 </ul>
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
@@ -95,8 +95,8 @@
                                         {{-- <p data-aos="fade-up" data-aos-delay="250">Penanganan Kasus Kekerasan Dalam Rumah Tangga</p> --}}
 
                                         <div class="cta-group" data-aos="fade-up" data-aos-delay="300">
-                                            <a href="#" class="btn btn-primary">Daftar Akun</a>
-                                            <a href="services.html" class="btn btn-outline">Buat Pengaduan</a>
+                                            <a href="{{ route('daftar') }}" class="btn btn-primary">Daftar Akun</a>
+                                            <a href="{{ route('dashboard.pengaduan.tambah') }}" class="btn btn-outline">Buat Pengaduan</a>
                                         </div>
 
                                         <div class="info-badges" data-aos="fade-up" data-aos-delay="350">
@@ -229,8 +229,8 @@
                             </div>
 
                             <div class="cta-wrapper mt-4">
-                                <a href="about.html" class="btn btn-primary">Daftar Akun</a>
-                                <a href="#" class="btn btn-outline">Laporkan Pengaduan</a>
+                                <a href="{{ route('daftar') }}" class="btn btn-primary">Daftar Akun</a>
+                                <a href="{{ route('dashboard.pengaduan.tambah') }}" class="btn btn-outline">Laporkan Pengaduan</a>
                             </div>
                         </div>
                     </div>
@@ -412,7 +412,7 @@
             <div class="row  d-flex align-items-center">
                 <div class="col-lg-4 col-md-4 footer-about">
                     <a href="index.html" class="logo d-flex align-items-center">
-                        <span class="sitename">SPK KDRT</span>
+                        <span class="sitename">SI KDRT</span>
                     </a>
 
                     <div class="footer-contact pt-3">
@@ -432,7 +432,7 @@
                     <h4>Kontak</h4>
                     <ul>
                         <p class="mt-3"><strong>No Hp:</strong> <span>+62 821 9988 9821</span></p>
-                        <p><strong>Email:</strong> <span>info@spkkdrt.com</span></p>
+                        <p><strong>Email:</strong> <span>info@SIkdrt.com</span></p>
                     </ul>
                 </div>
 
@@ -443,7 +443,7 @@
                         <li><a href="#">Beranda</a></li>
                         <li><a href="#tentang">Tentang</a></li>
                         <li><a href="{{ route('login') }}">Login</a></li>
-                        <li><a href="#">Daftar Akun</a></li>
+                        <li><a href=" {{ route('daftar') }}">Daftar Akun</a></li>
                         <li><a href="#">Pengaduan</a></li>
                     </ul>
                 </div>
@@ -459,7 +459,7 @@
                 <!-- You can delete the links only if you've purchased the pro version. -->
                 <!-- Licensing information: https://bootstrapmade.com/license/ -->
                 <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-                Designed by <a href="#">IT SPK KDRT MIMIKA</a>
+                Designed by <a href="#">IT SI KDRT MIMIKA</a>
             </div>
         </div>
 

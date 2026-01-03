@@ -14,18 +14,16 @@ return new class extends Migration
         Schema::create('pendampingan_kasuses', function (Blueprint $table) {
             $table->id();
             $table->string('tanggal_pendampingan');
-            $table->unsignedBigInteger('petugas_pendamping_id');
-            $table->unsignedBigInteger('pengaduan_masyarakat_id');
-            $table->unsignedBigInteger('alternatif_id');
-            $table->unsignedBigInteger('kriteria_id');
+            $table->string('petugas_pendamping_id');
+            $table->string('pengaduan_masyarakat_id');
+           
+            $table->string('bukti')->nullable();
+            $table->string('keterangan')->nullable();
 
-            $table->string('penilaian_kasus');
-
-            // Foreign Keys
-            $table->foreign('petugas_pendamping_id')->references('id')->on('petugas_pendampings')->onDelete('cascade');;
-            $table->foreign('pengaduan_masyarakat_id')->references('id')->on('pengaduan_masyarakats');
-            $table->foreign('alternatif_id')->references('id')->on('alternatifs');
-            $table->foreign('kriteria_id')->references('id')->on('kriterias');
+            // // Foreign Keyspetugas_pendampings
+            // $table->foreign('petugas_pendamping_id')->references('id')->on('pentugas_pendampings');
+            // $table->foreign('pengaduan_masyarakat_id')->references('id')->on('pengaduan_masyarakats');
+            
 
         });
     }

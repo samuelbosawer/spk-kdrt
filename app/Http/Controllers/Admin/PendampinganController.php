@@ -11,60 +11,48 @@ use App\Models\PentugasPendamping;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+
 class PendampinganController extends Controller
 {
-     // Tampilkan semua data
+    // Tampilkan semua data
     public function index(Request $request)
     {
-         $datas = PendampinganKasus::with([
-        'petugasPendamping',
-        'pengaduanMasyarakat',
-        'alternatif',
-        'rekomendasis'
-    ])
-    ->whereNotNull('tanggal_pendampingan')
-    ->when($request->s, function ($query) use ($request) {
+        $datas = PendampinganKasus::with([
+            'petugasPendamping',
+            'pengaduanMasyarakat'
 
-        $s = $request->s;
+        ])
+            ->whereNotNull('tanggal_pendampingan')
+            ->when($request->s, function ($query) use ($request) {
 
-        $query->where(function ($q) use ($s) {
+                $s = $request->s;
 
-            // Pencarian di tabel pendampingan_kasuses
-            $q->where('tanggal_pendampingan', 'LIKE', "%$s%")
-              ->orWhere('penilaian_kasus', 'LIKE', "%$s%");
+                $query->where(function ($q) use ($s) {
 
-            // Pencarian relasi: petugasPendamping
-            $q->orWhereHas('petugasPendamping', function ($q2) use ($s) {
-                $q2->where('nama_petugas', 'LIKE', "%$s%")
-                 ->orWhere('nip', 'LIKE', "%$s%");
-            });
+                    // Pencarian di tabel pendampingan_kasuses
+                    $q->where('tanggal_pendampingan', 'LIKE', "%$s%");
 
-            // Pencarian relasi: pengaduanMasyarakat
-            $q->orWhereHas('pengaduanMasyarakat', function ($q2) use ($s) {
-                $q2->where('judul_pengaduan', 'LIKE', "%$s%")
-                     ->orWhere('nama_pengadu', 'LIKE', "%$s%")
-                     ->orWhere('nama_pelaku', 'LIKE', "%$s%")
-                          ->orWhere('nama_korban', 'LIKE', "%$s%");
-            });
+                    // Pencarian relasi: petugasPendamping
+                    $q->orWhereHas('petugasPendamping', function ($q2) use ($s) {
+                        $q2->where('nama_petugas', 'LIKE', "%$s%")
+                            ->orWhere('nip', 'LIKE', "%$s%");
+                    });
 
-            // Pencarian relasi: alternatif
-            $q->orWhereHas('alternatif', function ($q2) use ($s) {
-                $q2->where('alternatif', 'LIKE', "%$s%");
-            });
+                    // Pencarian relasi: pengaduanMasyarakat
+                    $q->orWhereHas('pengaduanMasyarakat', function ($q2) use ($s) {
+                        $q2->where('judul_pengaduan', 'LIKE', "%$s%")
+                            ->orWhere('nama_pengadu', 'LIKE', "%$s%")
+                            ->orWhere('nama_pelaku', 'LIKE', "%$s%")
+                            ->orWhere('nama_korban', 'LIKE', "%$s%");
+                    });
+                });
+            })
+            ->orderBy('id', 'desc')
+            ->paginate(7);
 
-            // Pencarian relasi: rekomendasis
-            $q->orWhereHas('rekomendasis', function ($q2) use ($s) {
-                $q2->where('rekomendasi', 'LIKE', "%$s%");
-            });
-
-        });
-    })
-    ->orderBy('id', 'desc')
-    ->paginate(7);
-
-    return view('admin.pendampingan.index', compact('datas'))
-    ->with('i', (request()->input('page', 1) - 1) * 7);
-
+        return view('admin.pendampingan.index', compact('datas'))
+            ->with('i', (request()->input('page', 1) - 1) * 7);
     }
 
     // Tampilkan form tambah data
@@ -73,23 +61,26 @@ class PendampinganController extends Controller
 
         $petugas = PentugasPendamping::orderBy('id', 'desc')->get();
         $pengaduan = PengaduanMasyarakat::orderBy('id', 'desc')->get();
-        $alternatif = Alternatif::orderBy('id', 'desc')->get();
-        $kriteria = Kriteria::orderBy('id', 'desc')->get();
 
-        return view('admin.pendampingan.create-update-show', compact('petugas','pengaduan','alternatif','kriteria'));
+        return view('admin.pendampingan.create-update-show', compact('petugas', 'pengaduan'));
     }
 
     // Simpan data baru
     public function store(Request $request)
     {
-         $validated = $request->validate([
+
+        $validated = $request->validate([
             'tanggal_pendampingan'     => 'required',
-            'penilaian_kasus'         => 'required',
             'petugas_pendamping_id'         => 'required',
             'pengaduan_masyarakat_id'         => 'required',
-            'alternatif_id'         => 'required',
-            'kriteria_id'         => 'required',
+            'keterangan'                => 'nullable',
+            'bukti'          => 'file|mimes:pdf,doc,docx,jpg,png',
         ]);
+
+        // Upload file bukti
+        if ($request->hasFile('bukti')) {
+            $validated['bukti'] = $request->file('bukti')->store('pendampingan/bukti', 'public');
+        }
 
         PendampinganKasus::create($validated);
         Alert::success('Berhasil', 'Data berhasil ditambahkan');
@@ -101,12 +92,9 @@ class PendampinganController extends Controller
     {
         $petugas = PentugasPendamping::orderBy('id', 'desc')->get();
         $pengaduan = PengaduanMasyarakat::orderBy('id', 'desc')->get();
-        $alternatif = Alternatif::orderBy('id', 'desc')->get();
-        $kriteria = Kriteria::orderBy('id', 'desc')->get();
         $data = PendampinganKasus::where('id', $id)->first();
-
         $judul = 'DETAIL DATA PENDAMPINGAN';
-        return view('admin.pendampingan.create-update-show', compact('petugas','pengaduan','alternatif','kriteria','data','judul'));
+        return view('admin.pendampingan.create-update-show', compact('petugas', 'pengaduan','data', 'judul'));
     }
 
     // Tampilkan form edit data
@@ -114,26 +102,33 @@ class PendampinganController extends Controller
     {
         $petugas = PentugasPendamping::orderBy('id', 'desc')->get();
         $pengaduan = PengaduanMasyarakat::orderBy('id', 'desc')->get();
-        $alternatif = Alternatif::orderBy('id', 'desc')->get();
-        $kriteria = Kriteria::orderBy('id', 'desc')->get();
+       
         $data = PendampinganKasus::where('id', $id)->first();
 
         $judul = 'UBAH DATA PENDAMPINGAN';
-        return view('admin.pendampingan.create-update-show', compact('petugas','pengaduan','alternatif','kriteria','data','judul'));
+        return view('admin.pendampingan.create-update-show', compact('petugas', 'pengaduan', 'data', 'judul'));
     }
 
     // Update data
     public function update(Request $request, $id)
     {
         $data = PendampinganKasus::findOrFail($id);
-         $validated = $request->validate([
+        $validated = $request->validate([
             'tanggal_pendampingan'     => 'required',
-            'penilaian_kasus'         => 'required',
             'petugas_pendamping_id'         => 'required',
             'pengaduan_masyarakat_id'         => 'required',
-            'alternatif_id'         => 'required',
-            'kriteria_id'         => 'required',
+            'keterangan' => 'nullable',
+            'bukti'          => 'file|mimes:pdf,doc,docx,jpg,png',
         ]);
+
+        if ($request->hasFile('bukti')) {
+            // Hapus file lama jika ada
+            if ($request->bukti && \Storage::disk('public')->exists($request->bukti)) {
+                \Storage::disk('public')->delete($request->bukti);
+            }
+            // Upload file baru
+            $validated['bukti'] = $request->file('bukti')->store('pendampingan/bukti', 'public');
+        }
 
         $data->update($validated);
         Alert::success('Berhasil', 'Ubah data berhasil');

@@ -36,36 +36,36 @@
 
                                         @foreach ($pengaduan as $p)
                                             <option value="{{ $p->id }}"
-                                                {{ old('pengaduan_masyarakat_id', $data->pengaduan_masyarakat_id ?? '') == $p->id ? 'selected' : '' }}>
+                                                {{ old('pengaduan_masyarakat_id', $data[0]->pengaduan_masyarakat_id ?? '') == $p->id ? 'selected' : '' }}>
                                                 {{ $p->judul_pengaduan }} (K{{ $p->id }})
                                             </option>
                                         @endforeach
                                     </select>
 
+                               
                                     @error('pengaduan_masyarakat_id')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
                             </div>
 
+
+
                             @foreach ($alternatifs as $index => $a)
+                            @dump($a->id)
                                 <div class="row mt-3 p-3 rounded shadow">
 
                                     <div class="col-md-6 mb-3">
-                                        <label class="form-label ">Alternatif</label>
+                                        <label class="form-label">Alternatif</label>
                                         <input type="text" class="form-control" value="{{ $a->alternatif }}" disabled>
 
                                         <input type="hidden" name="alternatif_id[]" value="{{ $a->id }}">
-
-                                        @error('alternatif_id.' . $loop->index)
-                                            <small class="text-danger">{{ $message }}</small>
-                                        @enderror
                                     </div>
 
                                     <div class="col-md-6 mb-3">
-                                        <label class="form-label ">Nilai Ideal {{ $a->alternatif }}</label>
+                                        <label class="form-label">Nilai Ideal {{ $a->alternatif }}</label>
                                         <input type="text" class="form-control" name="nilai_kasus[]"
-                                            value="{{ old('nilai_kasus.' . $index) }}"
+                                            value="{{ old('nilai_kasus.' . $loop->index, $data[$a->id]->nilai_kasus ?? '') }}"
                                             @if (Request::segment(3) == 'detail') disabled @endif>
 
                                         @error('nilai_kasus.' . $loop->index)
@@ -74,16 +74,15 @@
                                     </div>
 
                                 </div>
-                            @endforeach
 
+                      
+
+                            @endforeach
 
                             <div class="col-md-12 mb-3 mx-auto mt-5">
                                 @if (Request::segment(3) == 'detail')
-                                    {{-- @if (!Auth::user()->hasAnyRole(['mahasiswa', 'dosen'])) --}}
-                                    <a href="{{ route('dashboard.nilai.ubah', $data->id) }}"
-                                        class="btn btn-dark ">
+                                    <a href="{{ route('dashboard.nilai.ubah', $data[0]->pengaduan_masyarakat_id) }}" class="btn btn-dark ">
                                         <i class="menu-icon tf-icons bx bx-pencil"></i> UBAH DATA </a>
-                                    {{-- @endif --}}
                                 @elseif ((Request::segment(3) == 'tambah' || Request::segment(4) == 'ubah') && Request::segment(2) == 'nilai')
                                     <button type="submit" class="btn btn-primary ">SIMPAN <i
                                             class="menu-icon tf-icons bx bx-save"></i></button>

@@ -119,7 +119,7 @@
                         </div>
 
 
-                         <div class="col-md-6 p-3">
+                        <div class="col-md-6 p-3">
                             <div class="table-responsive p-3">
                                 <p class="fw-bolder">Konversi GAP</p>
                                 <table class="table table-bordered">
@@ -130,16 +130,125 @@
                                         </tr>
                                     </thead>
                                     <tbody class="table-border-bottom-0">
-                                        @foreach ($konversi as $a )
-                                        <tr>
-                                            <td>{{ $a->nilai_gap }}</td>
-                                            <td>{{ $a->bobot_w }}</td>
-                                        </tr>
+                                        @foreach ($konversi_all as $a)
+                                            <tr>
+                                                <td>{{ $a->nilai_gap }}</td>
+                                                <td>{{ $a->bobot_w }}</td>
+                                            </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
                             </div>
                         </div>
+
+
+
+                        <div class="col-12 p-3">
+                            <div class="table-responsive p-3">
+                                <p class="fw-bolder">Perhitungan Profile Matching</p>
+
+                                <table class="table table-bordered">
+
+
+                                    <tbody>
+                                        @foreach ($nilai as $kasus)
+                                            {{-- HEADER PEMISAH KASUS --}}
+                                            <tr class="table-dark">
+                                                <td colspan="{{ 5 + count($kriteria) * 2 }}" class="fw-bold text-center">
+                                                    KASUS K{{ $kasus->id }}
+                                                </td>
+                                            </tr>
+
+                                            {{-- HEADER KOLOM ULANG (SEPERTI EXCEL) --}}
+                                            <tr class="bg-primary text-white text-center">
+                                                <th class="text-white">Kasus</th>
+                                                <th class="text-white">Alternatif</th>
+                                                @foreach ($kriteria as $k)
+                                                    <th class="text-white">GAP_C{{ $k->id }}</th>
+                                                    <th class="text-white">W_C{{ $k->id }}</th>
+                                                @endforeach
+                                                <th class="text-white">CF</th>
+                                                <th class="text-white">SF</th>
+                                                <th class="text-white">Nilai Akhir</th>
+                                            </tr>
+
+                                            {{-- DATA PER ALTERNATIF --}}
+                                            @foreach ($alternatif as $alt)
+                                                <tr>
+                                                    <td class="text-center fw-bold">K{{ $kasus->id }}</td>
+                                                    <td>{{ $alt->alternatif }}</td>
+
+                                                    @foreach ($kriteria as $k)
+                                                        <td class="text-center">
+                                                            {{ $hasil[$kasus->id][$alt->id]['gap'][$k->id] ?? '-' }}
+                                                        </td>
+                                                        <td class="text-center">
+                                                            {{ $hasil[$kasus->id][$alt->id]['bobot'][$k->id] ?? '-' }}
+                                                        </td>
+                                                    @endforeach
+
+                                                    <td class="text-center fw-bold">
+                                                        {{ $hasil[$kasus->id][$alt->id]['cf'] }}
+                                                    </td>
+                                                    <td class="text-center fw-bold">
+                                                        {{ $hasil[$kasus->id][$alt->id]['sf'] }}
+                                                    </td>
+                                                    <td class="text-center fw-bold bg-light">
+                                                        {{ $hasil[$kasus->id][$alt->id]['nilai_akhir'] }}
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @endforeach
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="col-12 p-3">
+                            <div class="table-responsive p-3">
+                                <p class="fw-bolder">Ringkasan Hasil Rekomendasi</p>
+
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr class="bg-primary  text-center fw-bold">
+                                            <th class="text-white">Kasus</th>
+
+                                            @foreach ($alternatif as $alt)
+                                                <th class="text-white">{{ $alt->alternatif }}</th>
+                                            @endforeach
+
+                                            <th class="text-white">Nilai Tertinggi</th>
+                                            <th class="text-white">Rekomendasi</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        @foreach ($nilai as $kasus)
+                                            <tr class="text-center">
+                                                <td class="fw-bold">K{{ $kasus->id }}</td>
+
+                                                @foreach ($alternatif as $alt)
+                                                    <td>
+                                                        {{ number_format($ringkasan[$kasus->id]['nilai'][$alt->id], 2) }}
+                                                    </td>
+                                                @endforeach
+
+                                                <td class="fw-bold bg-light">
+                                                    {{ number_format($ringkasan[$kasus->id]['max'], 2) }}
+                                                </td>
+
+                                                <td class="fw-bold text-success">
+                                                    {{ $ringkasan[$kasus->id]['rekomendasi'] }}
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
                     </div>
 
                 </div>

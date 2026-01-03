@@ -7,15 +7,16 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+ * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('nilai_kasuses', function (Blueprint $table) {
+        Schema::create('pengajuans', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('pengaduan_masyarakat_id');
-            $table->unsignedBigInteger('alternatif_id');
-            $table->string('nilai_kasus');
+            $table->unsignedBigInteger('pengaduan_id');
+            $table->text('rekomendasi');
+        $table->string('status');
+            $table->mediumText('keterangan')->nullable();
         });
     }
 
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('nilai_kasuses');
+        Schema::dropIfExists('pengajuans');
     }
 };
