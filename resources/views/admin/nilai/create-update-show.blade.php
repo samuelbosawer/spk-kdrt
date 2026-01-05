@@ -8,7 +8,7 @@
             <div class="col-12">
                 <div class="row">
                     <div class="card mb-4">
-                        <h5 class="card-header fw-bolder"><i class="menu-icon tf-icons bx bx-file"></i>
+                        <h5 class="card-header fw-bolder"><i class="menu-icon tf-icons bx bx-bar-chart-alt-2"></i>
                             {{ $judul ?? 'TAMBAH DATA NILAI PENGADUAN' }} </h5>
                         <div class="card-body">
 

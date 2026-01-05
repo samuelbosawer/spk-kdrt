@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Alternatif;
 use App\Models\Kriteria;
 use App\Models\PengaduanMasyarakat;
+use App\Models\Pengajuan;
 use App\Models\PentugasPendamping;
 use App\Models\Rekomendasi;
 use Illuminate\Http\Request;
@@ -21,9 +22,10 @@ class DashboardController extends Controller
         $petugas = PentugasPendamping::count();
         $rekomendasi = Rekomendasi::count();
         $pendampingan = PengaduanMasyarakat::count();
+        $pengajuan = Pengajuan::count();
 
 
-        return view('admin.dashboard.index',compact('kriteria','alternatif','pengaduan','petugas', 'rekomendasi','pendampingan'));
+        return view('admin.dashboard.index',compact('kriteria','alternatif','pengaduan','petugas', 'rekomendasi','pendampingan','pengajuan'));
     }
 
     // Tampilkan form tambah data

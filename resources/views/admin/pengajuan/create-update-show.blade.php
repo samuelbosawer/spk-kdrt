@@ -4,7 +4,7 @@
     <div class="container-xxl container-p-y">
 
         <div class="card">
-            <h5 class="card-header fw-bold">Tambah Pengajuan Kasus</h5>
+            <h5 class="card-header fw-bold">  Tambah Pengajuan Kasus</h5>
 
             <div class="card-body">
                 <form action="{{ route('dashboard.pengajuan.store') }}" method="POST">

@@ -10,6 +10,7 @@ use App\Models\PengaduanMasyarakat;
 use App\Models\Pengajuan;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
+use Mpdf\Mpdf;
 
 class PengajuanController extends Controller
 {
@@ -83,43 +84,44 @@ class PengajuanController extends Controller
 
 
         $pengajuan = Pengajuan::with(['pengaduan', 'pengaduan.user'])
-    ->when($request->s, function ($query) use ($request) {
-        $s = $request->s;
+            ->when($request->s, function ($query) use ($request) {
+                $s = $request->s;
 
-        $query->where(function ($q) use ($s) {
+                $query->where(function ($q) use ($s) {
 
-            // field tabel pengajuan
-            $q->where('pengaduan_id', 'LIKE', "%{$s}%")
-              ->orWhere('rekomendasi', 'LIKE', "%{$s}%")
-              ->orWhere('status', 'LIKE', "%{$s}%")
-              ->orWhere('keterangan', 'LIKE', "%{$s}%")
+                    // field tabel pengajuan
+                    $q->where('pengaduan_id', 'LIKE', "%{$s}%")
+                        ->orWhere('rekomendasi', 'LIKE', "%{$s}%")
+                        ->orWhere('status', 'LIKE', "%{$s}%")
+                        ->orWhere('keterangan', 'LIKE', "%{$s}%")
 
-              // relasi pengaduan
-              ->orWhereHas('pengaduan', function ($p) use ($s) {
-                    $p->where('nama_pengadu', 'LIKE', "%{$s}%")
-                      ->orWhere('nama_korban', 'LIKE', "%{$s}%")
-                      ->orWhere('judul_pengaduan', 'LIKE', "%{$s}%")
-                      ->orWhere('nama_pelaku', 'LIKE', "%{$s}%")
-                      ->orWhere('jk_korban', 'LIKE', "%{$s}%")
-                      ->orWhere('lokasi_kejadian', 'LIKE', "%{$s}%")
-                      ->orWhere('deskripsi_singkat', 'LIKE', "%{$s}%")
-                      ->orWhere('tanggal_kejadian', 'LIKE', "%{$s}%");
-              });
-        });
-    })
-    ->orderBy('id', 'desc')
-    ->paginate(7, ['*'], 'pengajuan_page')
-    ->withQueryString();
+                        // relasi pengaduan
+                        ->orWhereHas('pengaduan', function ($p) use ($s) {
+                            $p->where('nama_pengadu', 'LIKE', "%{$s}%")
+                                ->orWhere('nama_korban', 'LIKE', "%{$s}%")
+                                ->orWhere('judul_pengaduan', 'LIKE', "%{$s}%")
+                                ->orWhere('nama_pelaku', 'LIKE', "%{$s}%")
+                                ->orWhere('jk_korban', 'LIKE', "%{$s}%")
+                                ->orWhere('lokasi_kejadian', 'LIKE', "%{$s}%")
+                                ->orWhere('deskripsi_singkat', 'LIKE', "%{$s}%")
+                                ->orWhere('tanggal_kejadian', 'LIKE', "%{$s}%");
+                        });
+                });
+            })
+            ->orderBy('id', 'desc')
+            ->paginate(7, ['*'], 'pengajuan_page')
+            ->withQueryString();
 
-        return view('admin.pengajuan.index',
-            compact('kriteria', 'alternatif', 'nilai', 'konversi', 'hasil', 'konversi_all', 'ringkasan','pengajuan')
+        return view(
+            'admin.pengajuan.index',
+            compact('kriteria', 'alternatif', 'nilai', 'konversi', 'hasil', 'konversi_all', 'ringkasan', 'pengajuan')
         );
     }
 
     public function tambah($kasusId)
     {
-       $kasus = PengaduanMasyarakat::findOrFail($kasusId);
-       $ringkasan = $this->hitungProfileMatching();
+        $kasus = PengaduanMasyarakat::findOrFail($kasusId);
+        $ringkasan = $this->hitungProfileMatching();
         return view('admin.pengajuan.create-update-show', [
             'kasus'        => $kasus,
             'alternatifId' => $ringkasan[$kasusId]['rekomendasi'],
@@ -213,7 +215,20 @@ class PengajuanController extends Controller
     // Tampilkan detail satu data
     public function show($id)
     {
-        return view('admin.crud_tamplate.create-update-show');
+        $data = Pengajuan::with('pengaduan')->findOrFail($id);
+        $html = view('admin.pengajuan.pdf', compact('data'))->render();
+
+        $mpdf = new Mpdf([
+            'mode' => 'utf-8',
+            'format' => 'A4',
+            'margin_top' => 15,
+            'margin_bottom' => 15,
+        ]);
+
+        $mpdf->WriteHTML($html);
+
+        return response($mpdf->Output('', 'S'))
+            ->header('Content-Type', 'application/pdf');
     }
 
     // Tampilkan form edit data

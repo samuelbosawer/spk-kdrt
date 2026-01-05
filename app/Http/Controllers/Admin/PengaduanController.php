@@ -32,34 +32,6 @@ class PengaduanController extends Controller
             ->paginate(7);
 
 
-            $datas = PengaduanMasyarakat::with(['pengaduan', 'pengaduan.user'])
-    ->when($request->s, function ($query) use ($request) {
-        $s = $request->s;
-
-        $query->where(function ($q) use ($s) {
-
-            // 🔹 Field di tabel pengajuan
-            $q->where('pengaduan_id', 'LIKE', "%{$s}%")
-              ->orWhere('rekomendasi', 'LIKE', "%{$s}%")
-              ->orWhere('status', 'LIKE', "%{$s}%")
-              ->orWhere('keterangan', 'LIKE', "%{$s}%")
-
-              // 🔹 Field dari relasi pengaduan
-              ->orWhereHas('pengaduan', function ($p) use ($s) {
-                    $p->where('nama_pengadu', 'LIKE', "%{$s}%")
-                      ->orWhere('nama_korban', 'LIKE', "%{$s}%")
-                      ->orWhere('judul_pengaduan', 'LIKE', "%{$s}%")
-                      ->orWhere('nama_pelaku', 'LIKE', "%{$s}%")
-                      ->orWhere('jk_korban', 'LIKE', "%{$s}%")
-                      ->orWhere('lokasi_kejadian', 'LIKE', "%{$s}%")
-                      ->orWhere('deskripsi_singkat', 'LIKE', "%{$s}%")
-                      ->orWhere('tanggal_kejadian', 'LIKE', "%{$s}%");
-              });
-        });
-    })
-    ->orderBy('id', 'desc')
-    ->paginate(7);
-
         return view('admin.pengaduan.index', compact('datas'))
             ->with('i', (request()->input('page', 1) - 1) * 7);
     }

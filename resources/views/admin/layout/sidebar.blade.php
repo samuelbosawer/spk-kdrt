@@ -16,6 +16,7 @@
      <div class="menu-inner-shadow"></div>
 
      <ul class="menu-inner py-1">
+        
          <!-- Dashboard -->
          <li class="menu-item @if (Request::segment(1) == 'dashboard' && Request::segment(2) == null) active @endif">
              <a href="{{ route('dashboard.home') }}" class="menu-link">
@@ -53,7 +54,7 @@
 
          <li class="menu-item @if (Request::segment(1) == 'dashboard' && Request::segment(2) == 'nilai') active @endif">
              <a href="{{ route('dashboard.nilai') }}" class="menu-link">
-                 <i class="menu-icon tf-icons bx bx-file"></i>
+                 <i class="menu-icon tf-icons bx bx-bar-chart-alt-2"></i>
                  <div data-i18n="Analytics"> Nilai Pengaduan</div>
              </a>
          </li>
@@ -84,7 +85,7 @@
 
           <li class="menu-item @if (Request::segment(1) == 'dashboard' && Request::segment(2) == 'pengajuan') active @endif">
              <a href="{{ route('dashboard.pengajuan') }}" class="menu-link">
-                 <i class="menu-icon tf-icons bx bx-star"></i>
+                 <i class="menu-icon tf-icons bx bx-edit"></i>
                  <div data-i18n="Analytics">Pengajuan </div>
              </a>
          </li>

@@ -20,10 +20,6 @@ return new class extends Migration
             $table->string('bukti')->nullable();
             $table->string('keterangan')->nullable();
 
-            // // Foreign Keyspetugas_pendampings
-            // $table->foreign('petugas_pendamping_id')->references('id')->on('pentugas_pendampings');
-            // $table->foreign('pengaduan_masyarakat_id')->references('id')->on('pengaduan_masyarakats');
-            
 
         });
     }

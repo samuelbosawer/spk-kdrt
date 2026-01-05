@@ -60,8 +60,22 @@
                     <li><a href="#layanan">Layanan</a></li>
                     <li><a href="{{ route('dashboard.pengaduan.tambah') }}">Pengaduan</a></li>
                     <li><a href="#kontak">Kontak</a></li>
-                    <li><a href="{{ route('login') }}">Login</a></li>
-                    <li><a href="{{ route('daftar') }}">Daftar</a></li>
+                    @if (Auth::check() != null)
+                        <li><a href="{{ route('dashboard.home') }}">Dashboard</a></li>
+                        <li>
+                            <a href="#"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                Keluar
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </li>
+                    @else
+                        <li><a href="{{ route('login') }}">Login</a></li>
+                        <li><a href="{{ route('daftar') }}">Daftar</a></li>
+                    @endif
 
                 </ul>
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
@@ -95,8 +109,15 @@
                                         {{-- <p data-aos="fade-up" data-aos-delay="250">Penanganan Kasus Kekerasan Dalam Rumah Tangga</p> --}}
 
                                         <div class="cta-group" data-aos="fade-up" data-aos-delay="300">
-                                            <a href="{{ route('daftar') }}" class="btn btn-primary">Daftar Akun</a>
-                                            <a href="{{ route('dashboard.pengaduan.tambah') }}" class="btn btn-outline">Buat Pengaduan</a>
+
+                                              @if (Auth::check() != null)
+                                                    <a href="{{ route('dashboard.home') }}" class="btn btn-primary">Dashboard</a>
+                                              @else
+                                                      <a href="{{ route('daftar') }}" class="btn btn-primary">Daftar Akun</a>
+                                              @endif
+                                          
+                                            <a href="{{ route('dashboard.pengaduan.tambah') }}"
+                                                class="btn btn-outline">Buat Pengaduan</a>
                                         </div>
 
                                         <div class="info-badges" data-aos="fade-up" data-aos-delay="350">
@@ -229,8 +250,14 @@
                             </div>
 
                             <div class="cta-wrapper mt-4">
-                                <a href="{{ route('daftar') }}" class="btn btn-primary">Daftar Akun</a>
-                                <a href="{{ route('dashboard.pengaduan.tambah') }}" class="btn btn-outline">Laporkan Pengaduan</a>
+
+                                  @if (Auth::check() != null)
+                                        <a href="{{ route('dashboard.home') }}" class="btn btn-primary">Dashboard</a>
+                                  @else
+                                        <a href="{{ route('daftar') }}" class="btn btn-primary">Daftar Akun</a>
+                                  @endif
+                                <a href="{{ route('dashboard.pengaduan.tambah') }}" class="btn btn-outline">Laporkan
+                                    Pengaduan</a>
                             </div>
                         </div>
                     </div>
@@ -269,10 +296,7 @@
                             <h5>Layanan Pengaduan</h5>
                             <p>Menyediakan layanan pelaporan dan pengaduan kekerasan terhadap perempuan dan anak secara
                                 aman, mudah, dan terpercaya.</p>
-                            <a href="#" class="feature-link">
-                                <span>Laporkan Kasus</span>
-                                <i class="bi bi-arrow-right"></i>
-                            </a>
+
                         </div>
                     </div>
 
@@ -284,10 +308,7 @@
                             <h5>Layanan Pendampingan</h5>
                             <p>Memberikan pendampingan cepat dan berkelanjutan bagi korban melalui dukungan psikologis,
                                 hukum, dan sosial.</p>
-                            <a href="#" class="feature-link">
-                                <span>Proses Pendampingan</span>
-                                <i class="bi bi-arrow-right"></i>
-                            </a>
+
                         </div>
                     </div>
 
@@ -299,10 +320,7 @@
                             <h5>Pengambilan Keputusan</h5>
                             <p>Mendukung petugas dalam menentukan prioritas penanganan kasus secara objektif dan
                                 berbasis data.</p>
-                            <a href="#" class="feature-link">
-                                <span>Lihat Proses</span>
-                                <i class="bi bi-arrow-right"></i>
-                            </a>
+
                         </div>
                     </div>
                 </div>
@@ -442,8 +460,15 @@
                     <ul>
                         <li><a href="#">Beranda</a></li>
                         <li><a href="#tentang">Tentang</a></li>
-                        <li><a href="{{ route('login') }}">Login</a></li>
-                        <li><a href=" {{ route('daftar') }}">Daftar Akun</a></li>
+
+                        @if (Auth::check() != null)
+                            <li>
+                                <a href="{{ route('dashboard.home') }}">Dashboard</a>
+                            </li>
+                        @else
+                            <li><a href="{{ route('login') }}">Login</a></li>
+                            <li><a href="{{ route('daftar') }}">Daftar Akun</a></li>
+                        @endif
                         <li><a href="#">Pengaduan</a></li>
                     </ul>
                 </div>
@@ -452,15 +477,8 @@
         </div>
 
         <div class="container copyright text-center mt-4">
-            <p>© <span>Copyright</span> <strong class="px-1 sitename">MyWebsite</strong> <span>All Rights
-                    Reserved</span></p>
-            <div class="credits">
-                <!-- All the links in the footer should remain intact. -->
-                <!-- You can delete the links only if you've purchased the pro version. -->
-                <!-- Licensing information: https://bootstrapmade.com/license/ -->
-                <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-                Designed by <a href="#">IT SI KDRT MIMIKA</a>
-            </div>
+            <p>© <span>Copyright IT SI KDRT MIMIKA </p>
+        </div>
         </div>
 
     </footer>
