@@ -3,7 +3,7 @@
 use App\Http\Controllers\Admin\NilaiController;
 use Illuminate\Support\Facades\Route;
 
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth', 'role.custom:admindinas']], function () {
 
     Route::controller(NilaiController::class)->group(function(){
         Route::get('nilai', [NilaiController::class, 'index'])->name('nilai');

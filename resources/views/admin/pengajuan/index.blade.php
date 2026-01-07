@@ -45,9 +45,11 @@
                                             </button>
                                             <div class="dropdown-menu">
                                                 <a class="dropdown-item"
-                                                    href="{{ route('dashboard.pengajuan.detail', $p->id) }}">
+                                                    href="{{ route('dashboard.pengajuan.detail', $p->id) }}" target="_blank">
                                                     <i class="bx bx-box me-1"></i> PDF</a>
 
+
+                                                       @if (!Auth::user()->hasAnyRole(['petugas', 'kepaladinas']))
                                                 <form action="{{ route('dashboard.pengajuan.hapus', $p->id) }}"
                                                     method="POST"
                                                     onsubmit="return confirm('Yakin ingin menghapus data ini?');">
@@ -58,6 +60,8 @@
                                                         <i class="bx bx-trash me-1"></i> Hapus
                                                     </button>
                                                 </form>
+
+                                                @endif
                                             </div>
                                         </div>
 
@@ -116,10 +120,14 @@
                                                 </td>
 
                                                 <td class="text-center">
+
+                                                      @if (!Auth::user()->hasAnyRole(['petugas', 'kepaladinas']))
                                                     <a href="{{ route('dashboard.pengajuan.tambah', $kasus->id) }}"
                                                         class="btn btn-primary btn-sm">
                                                         Buat Pengajuan
                                                     </a>
+
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @endforeach

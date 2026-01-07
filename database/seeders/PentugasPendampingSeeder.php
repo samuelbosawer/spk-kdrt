@@ -21,5 +21,14 @@ class PentugasPendampingSeeder extends Seeder
             'no_hp' => '081234567890',
             'user_id' => 2,
         ]);
+
+         PentugasPendamping::create([
+            'nip' => '1234567890',
+            'nama_petugas' => 'William K',
+            'jk' => 'Pria',
+            'alamat' => 'Timika, Papua Tengah',
+            'no_hp' => '081234567890',
+            'user_id' => 9,
+        ]);
     }
 }

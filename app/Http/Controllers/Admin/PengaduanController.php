@@ -11,25 +11,32 @@ use Illuminate\Support\Facades\Storage;
 
 class PengaduanController extends Controller
 {
-     // Tampilkan semua data
     public function index(Request $request)
     {
-          $datas = PengaduanMasyarakat::with('user')->whereNotNull('judul_pengaduan')->when($request->s, function ($query) use ($request) {
-            $s = $request->s;
-            $query->where(function ($q) use ($s) {
-                $q->where('nama_pengadu', 'LIKE', '%' . $s . '%')
-                ->orWhere('nama_korban', 'LIKE', '%' . $s . '%')
-                ->orWhere('judul_pengaduan', 'LIKE', '%' . $s . '%')
-                ->orWhere('nama_pelaku', 'LIKE', '%' . $s . '%')
-                ->orWhere('jk_korban', 'LIKE', '%' . $s . '%')
-                ->orWhere('lokasi_kejadian', 'LIKE', '%' . $s . '%')
-                ->orWhere('deskripsi_singkat', 'LIKE', '%' . $s . '%')
-                ->orWhere('tanggal_kejadian', 'LIKE', '%' . $s . '%')
-                ->orWhere('tanggal_kejadian', 'LIKE', '%' . $s . '%');
+        $datas = PengaduanMasyarakat::with('user')
+            ->whereNotNull('judul_pengaduan')
+
+            ->when(auth()->check() && auth()->user()->hasRole('masyarakat'), function ($query) {
+                $query->where('user_id', auth()->id());
+            })
+
+            ->when($request->s, function ($query) use ($request) {
+                $s = $request->s;
+                $query->where(function ($q) use ($s) {
+                    $q->where('nama_pengadu', 'LIKE', "%{$s}%")
+                        ->orWhere('nama_korban', 'LIKE', "%{$s}%")
+                        ->orWhere('judul_pengaduan', 'LIKE', "%{$s}%")
+                        ->orWhere('nama_pelaku', 'LIKE', "%{$s}%")
+                        ->orWhere('jk_korban', 'LIKE', "%{$s}%")
+                        ->orWhere('lokasi_kejadian', 'LIKE', "%{$s}%")
+                        ->orWhere('deskripsi_singkat', 'LIKE', "%{$s}%")
+                        ->orWhere('tanggal_kejadian', 'LIKE', "%{$s}%");
                 });
             })
-            ->orderBy('id','desc')
-            ->paginate(7);
+
+            ->orderBy('id', 'desc')
+            ->paginate(7)
+            ->withQueryString();
 
 
         return view('admin.pengaduan.index', compact('datas'))
@@ -73,24 +80,37 @@ class PengaduanController extends Controller
     // Tampilkan detail satu data
     public function show($id)
     {
-         $judul = 'DETAIL DATA PENGADUAN';
-        $data =   PengaduanMasyarakat::where('id',$id)->first();
-         return view('admin.pengaduan.create-update-show', compact('judul','data'));
+        $judul = 'DETAIL DATA PENGADUAN';
+        $data =   PengaduanMasyarakat::where('id', $id)->first();
+        if (
+            auth()->user()?->hasRole('masyarakat') &&
+            (int) auth()->id() !== (int)  $data->user_id
+        ) {
+            return redirect()->route('dashboard.pengaduan');
+        }
+        return view('admin.pengaduan.create-update-show', compact('judul', 'data'));
     }
 
     // Tampilkan form edit data
     public function edit($id)
     {
-         $judul = 'UBAH DATA PENGADUAN';
-        $data =   PengaduanMasyarakat::where('id',$id)->first();
-         return view('admin.pengaduan.create-update-show', compact('judul','data'));
+
+        $data =   PengaduanMasyarakat::where('id', $id)->first();
+        $judul = 'UBAH DATA PENGADUAN';
+        if (
+            auth()->user()?->hasRole('masyarakat') &&
+            (int) auth()->id() !== (int)  $data->user_id
+        ) {
+            return redirect()->route('dashboard.pengaduan');
+        }
+        return view('admin.pengaduan.create-update-show', compact('judul', 'data'));
     }
 
     // Update data
     public function update(Request $request, $id)
     {
         $data = PengaduanMasyarakat::findOrFail($id);
-         $validated = $request->validate([
+        $validated = $request->validate([
             'judul_pengaduan' => 'required|max:255',
             'nama_pengadu'     => 'required',
             'nama_korban'     => 'required',
@@ -104,7 +124,7 @@ class PengaduanController extends Controller
         ]);
 
 
-         // Jika ada upload file baru
+        // Jika ada upload file baru
         if ($request->hasFile('bukti_gambar')) {
 
             // Hapus file lama
@@ -122,13 +142,19 @@ class PengaduanController extends Controller
         $data->update($validated);
         Alert::success('Berhasil', 'Ubah data berhasil');
         return redirect()->route('dashboard.pengaduan');
-
     }
 
     // Hapus data
     public function destroy($id)
     {
         $data = PengaduanMasyarakat::findOrFail($id);
+        if (
+            auth()->user()?->hasRole('masyarakat') &&
+            (int) auth()->id() !== (int)  $data->user_id
+        ) {
+            return redirect()->route('dashboard.pengaduan');
+        }
+
 
         // Hapus file SK jika ada
         if (!empty($data->bukti_gambar) && Storage::disk('public')->exists($data->bukti_gambar)) {

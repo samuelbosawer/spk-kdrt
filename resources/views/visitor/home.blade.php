@@ -450,7 +450,7 @@
                     <h4>Kontak</h4>
                     <ul>
                         <p class="mt-3"><strong>No Hp:</strong> <span>+62 821 9988 9821</span></p>
-                        <p><strong>Email:</strong> <span>info@SIkdrt.com</span></p>
+                        <p><strong>Email:</strong> <span>info@sikdrt.com</span></p>
                     </ul>
                 </div>
 

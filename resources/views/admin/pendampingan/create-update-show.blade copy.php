@@ -1,24 +1,20 @@
 @extends('admin.layout.tamplate')
 
 @section('content')
-    <div class="container-xxl flex-grow-1 container-p-y">
+   <div class="container-xxl flex-grow-1 container-p-y">
         {{-- <h4 class="text-muted py-3 mb-4"><a href="/{{ Request::segment(1).'/'.Request::segment(2) }}" class=" fw-light">{{  Request::segment(2) }}</a> </h4> --}}
 
         <div class="row ">
             <div class="col-12">
 
                 <div class="card">
-                    <h5 class="card-header">Data Pengaduan </h5>
+                    <h5 class="card-header">Data Pendampingan </h5>
                     <div class="table-responsive text-nowrap p-3">
                         <div class="row">
                             <div class="col-6 my-3">
-                             @if (!Auth::user()->hasAnyRole(['petugas', 'kepaladinas']))
-                                    <a class="btn btn-primary" href="{{ route('dashboard.pengaduan.tambah') }}">Tambah Data
-                                        Pengaduan <i class="bx bx-plus me-1"></i></a>
-                                @endif
 
-
-
+                                <a class="btn btn-primary" href="{{ route('dashboard.pendampingan.tambah') }}">Tambah Data
+                                    Pendampingan <i class="bx bx-plus me-1"></i></a>
                             </div>
                             <div class="col-6 my-3">
                                 @include('admin.layout.search')
@@ -29,10 +25,11 @@
                     <table class="table table-bordered">
                         <thead class="">
                             <tr class="bg-primary ">
-                                <th class="text-white text-center  p-3 fw-bolder" width="10px" hight="10px">KODE</th>
-                                <th class="text-white text-center  p-3 fw-bolder">Judul</th>
-                                <th class="text-white text-center  p-3 fw-bolder">Tanggal Kejadian</th>
-                                <th class="text-white text-center  p-3 fw-bolder">Pengadu</th>
+                                <th class="text-white text-center  p-3 fw-bolder" width="10px" hight="10px">No</th>
+                                <th class="text-white text-center  p-3 fw-bolder">Pengaduan</th>
+                                <th class="text-white text-center  p-3 fw-bolder">Tanggal Pendampingan</th>
+                                <th class="text-white text-center  p-3 fw-bolder">Petugas</th>
+                                <th class="text-white text-center  p-3 fw-bolder">Korban</th>
                                 <th class="text-white text-center  p-3 fw-bolder">Pelaku</th>
                                 <th class="text-white text-center  p-3 fw-bolder"></th>
                             </tr>
@@ -40,15 +37,14 @@
                         <tbody class="table-border-bottom-0">
                             @forelse($datas as $data)
                                 <tr>
-                                    <td class="fw-bolder">K{{ $data->id }}</td>
+                                    <td>{{ ++$i }}</td>
                                     <td class="fw-bolder"> <a
-                                            href="{{ route('dashboard.pengaduan.detail', $data->id) }}">{{ $data->judul_pengaduan }}</a>
+                                            href="{{ route('dashboard.pendampingan', $data->id) }}">{{ $data->pengaduanMasyarakat->judul_pengaduan ?? ''}}</a>
                                     </td>
-                                    <td>{{ \Carbon\Carbon::parse($data->tanggal_kejadian)->translatedFormat('d - m - Y') }}
-                                    </td>
-
-                                    <td>{{ $data->nama_pengadu }}</td>
-                                    <td>{{ $data->nama_pelaku }}</td>
+                                    <td class="text-center">{{ \Carbon\Carbon::parse($data->tanggal_pendampingan)->translatedFormat('d - m - Y') }}</td>
+                                    <td>{{ $data->petugasPendamping->nama_petugas ?? '' }}</td>
+                                    <td>{{ $data->pengaduanMasyarakat->nama_korban ?? '' }}</td>
+                                    <td>{{ $data->pengaduanMasyarakat->nama_pelaku ?? '' }}</td>
 
                                     <td class="text-center">
                                         <div class="dropdown">
@@ -58,24 +54,24 @@
                                             </button>
                                             <div class="dropdown-menu">
                                                 <a class="dropdown-item"
-                                                    href="{{ route('dashboard.pengaduan.detail', $data->id) }}">
+                                                    href="{{ route('dashboard.pendampingan.detail', $data->id) }}">
                                                     <i class="bx bx-box me-1"></i> Detail</a>
-                                           @if (!Auth::user()->hasAnyRole(['petugas', 'kepaladinas']))
-                                                    <a class="dropdown-item"
-                                                        href="{{ route('dashboard.pengaduan.ubah', $data->id) }}"><i
-                                                            class="bx bx-edit-alt me-1"></i> Ubah</a>
 
-                                                    <form action="{{ route('dashboard.pengaduan.hapus', $data->id) }}"
-                                                        method="POST"
-                                                        onsubmit="return confirm('Yakin ingin menghapus data ini?');">
-                                                        @csrf
-                                                        @method('DELETE')
 
-                                                        <button type="submit" class="dropdown-item text-danger">
-                                                            <i class="bx bx-trash me-1"></i> Hapus
-                                                        </button>
-                                                    </form>
-                                                @endif
+                                                <a class="dropdown-item"
+                                                    href="{{ route('dashboard.pendampingan.ubah', $data->id) }}"><i
+                                                        class="bx bx-edit-alt me-1"></i> Ubah</a>
+
+                                                <form action="{{ route('dashboard.pendampingan.hapus', $data->id) }}"
+                                                    method="POST"
+                                                    onsubmit="return confirm('Yakin ingin menghapus data ini?');">
+                                                    @csrf
+                                                    @method('DELETE')
+
+                                                    <button type="submit" class="dropdown-item text-danger">
+                                                        <i class="bx bx-trash me-1"></i> Hapus
+                                                    </button>
+                                                </form>
                                             </div>
                                         </div>
 
@@ -101,4 +97,4 @@
 
         </div>
     </div>
-@endsection
+ @endsection

@@ -20,36 +20,48 @@ class PendampinganController extends Controller
     {
         $datas = PendampinganKasus::with([
             'petugasPendamping',
-            'pengaduanMasyarakat'
-
+            'pengaduanMasyarakat.user'
         ])
+
+            // 🔐 Filter jika login sebagai masyarakat
+            ->when(auth()->check() && auth()->user()->hasRole('masyarakat'), function ($query) {
+                $query->whereHas('pengaduanMasyarakat', function ($q) {
+                    $q->where('user_id', auth()->id());
+                });
+            })
+
             ->whereNotNull('tanggal_pendampingan')
+
+            // 🔍 Pencarian
             ->when($request->s, function ($query) use ($request) {
 
                 $s = $request->s;
 
                 $query->where(function ($q) use ($s) {
 
-                    // Pencarian di tabel pendampingan_kasuses
-                    $q->where('tanggal_pendampingan', 'LIKE', "%$s%");
+                    // tabel pendampingan
+                    $q->where('tanggal_pendampingan', 'LIKE', "%{$s}%")
 
-                    // Pencarian relasi: petugasPendamping
-                    $q->orWhereHas('petugasPendamping', function ($q2) use ($s) {
-                        $q2->where('nama_petugas', 'LIKE', "%$s%")
-                            ->orWhere('nip', 'LIKE', "%$s%");
-                    });
+                        // relasi petugas
+                        ->orWhereHas('petugasPendamping', function ($q2) use ($s) {
+                            $q2->where('nama_petugas', 'LIKE', "%{$s}%")
+                                ->orWhere('nip', 'LIKE', "%{$s}%");
+                        })
 
-                    // Pencarian relasi: pengaduanMasyarakat
-                    $q->orWhereHas('pengaduanMasyarakat', function ($q2) use ($s) {
-                        $q2->where('judul_pengaduan', 'LIKE', "%$s%")
-                            ->orWhere('nama_pengadu', 'LIKE', "%$s%")
-                            ->orWhere('nama_pelaku', 'LIKE', "%$s%")
-                            ->orWhere('nama_korban', 'LIKE', "%$s%");
-                    });
+                        // relasi pengaduan
+                        ->orWhereHas('pengaduanMasyarakat', function ($q2) use ($s) {
+                            $q2->where('judul_pengaduan', 'LIKE', "%{$s}%")
+                                ->orWhere('nama_pengadu', 'LIKE', "%{$s}%")
+                                ->orWhere('nama_pelaku', 'LIKE', "%{$s}%")
+                                ->orWhere('nama_korban', 'LIKE', "%{$s}%");
+                        });
                 });
             })
+
             ->orderBy('id', 'desc')
-            ->paginate(7);
+            ->paginate(7)
+            ->withQueryString();
+
 
         return view('admin.pendampingan.index', compact('datas'))
             ->with('i', (request()->input('page', 1) - 1) * 7);
@@ -61,7 +73,9 @@ class PendampinganController extends Controller
 
         $petugas = PentugasPendamping::orderBy('id', 'desc')->get();
         $pengaduan = PengaduanMasyarakat::orderBy('id', 'desc')->get();
-
+        if ((Auth::user()->hasRole('petugas'))) {
+            $petugas = PentugasPendamping::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->get();
+        }
         return view('admin.pendampingan.create-update-show', compact('petugas', 'pengaduan'));
     }
 
@@ -93,8 +107,15 @@ class PendampinganController extends Controller
         $petugas = PentugasPendamping::orderBy('id', 'desc')->get();
         $pengaduan = PengaduanMasyarakat::orderBy('id', 'desc')->get();
         $data = PendampinganKasus::where('id', $id)->first();
+
+        if (
+            auth()->user()?->hasRole('masyarakat') &&
+            (int) auth()->id() !== (int)  $data->pengaduanMasyarakat->user_id
+        ) {
+            return redirect()->route('dashboard.pendampingan');
+        }
         $judul = 'DETAIL DATA PENDAMPINGAN';
-        return view('admin.pendampingan.create-update-show', compact('petugas', 'pengaduan','data', 'judul'));
+        return view('admin.pendampingan.create-update-show', compact('petugas', 'pengaduan', 'data', 'judul'));
     }
 
     // Tampilkan form edit data
@@ -102,10 +123,28 @@ class PendampinganController extends Controller
     {
         $petugas = PentugasPendamping::orderBy('id', 'desc')->get();
         $pengaduan = PengaduanMasyarakat::orderBy('id', 'desc')->get();
-       
+
         $data = PendampinganKasus::where('id', $id)->first();
 
         $judul = 'UBAH DATA PENDAMPINGAN';
+
+
+        if (
+            auth()->user()?->hasRole('petugas') &&
+            (int) auth()->id() !== (int)  $data->petugasPendamping->user_id
+        ) {
+            return redirect()->route('dashboard.pendampingan.detail', $data->id);
+        }
+
+
+
+        if (
+            auth()->user()?->hasRole('masyarakat') &&
+            (int) auth()->id() !== (int)  $data->pengaduanMasyarakat->user_id
+        ) {
+            return redirect()->route('dashboard.pendampingan');
+        }
+
         return view('admin.pendampingan.create-update-show', compact('petugas', 'pengaduan', 'data', 'judul'));
     }
 

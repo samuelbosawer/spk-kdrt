@@ -35,15 +35,13 @@
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-semibold d-block">{{Auth::user()->nama}}</span>
+                            <span class="fw-semibold d-block">{{Auth::user()->email}}</span>
                             <small class="text-muted">{{Auth::user()->getRoleNames()->first()}}</small>
                           </div>
                         </div>
                       </a>
                     </li>
-                    <li>
-                      <div class="dropdown-divider"></div>
-                    </li>
+                
                    
                   
                    

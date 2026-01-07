@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Alternatif;
 use App\Models\Kriteria;
+use App\Models\PendampinganKasus;
 use App\Models\PengaduanMasyarakat;
 use App\Models\Pengajuan;
 use App\Models\PentugasPendamping;
@@ -23,6 +24,23 @@ class DashboardController extends Controller
         $rekomendasi = Rekomendasi::count();
         $pendampingan = PengaduanMasyarakat::count();
         $pengajuan = Pengajuan::count();
+
+         if (auth()->user()?->hasRole('masyarakat'))
+        {
+            $pengaduan = PengaduanMasyarakat::where('user_id', auth()->id())->count();
+             $pendampingan = PendampinganKasus::with([
+            'petugasPendamping',
+            'pengaduanMasyarakat.user'
+        ])
+            // 🔐 Filter jika login sebagai masyarakat
+            ->when(auth()->check() && auth()->user()->hasRole('masyarakat'), function ($query) {
+                $query->whereHas('pengaduanMasyarakat', function ($q) {
+                    $q->where('user_id', auth()->id());
+                });
+            })->count();
+        }
+
+
 
 
         return view('admin.dashboard.index',compact('kriteria','alternatif','pengaduan','petugas', 'rekomendasi','pendampingan','pengajuan'));

@@ -30,6 +30,9 @@ class UserSeeder extends Seeder
         ]);
         $user->assignRole('petugas');
 
+
+       
+
         
          $user = User::create([
             'email' => 'kepaladinas@master.com',
@@ -78,6 +81,14 @@ class UserSeeder extends Seeder
 
         ]);
         $user->assignRole('masyarakat');
+
+
+          $user = User::create([
+            'email' => 'petugas2@master.com',
+            'password' =>  bcrypt('petugas2@master.com'),
+
+        ]);
+        $user->assignRole('petugas');
 
 
         

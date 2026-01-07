@@ -3,7 +3,7 @@
 use App\Http\Controllers\Admin\KonversiController;
 use Illuminate\Support\Facades\Route;
 
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth', 'role.custom:admindinas']], function () {
 
     Route::controller(KonversiController::class)->group(function(){
         Route::get('konversi', [konversiController::class, 'index'])->name('konversi');

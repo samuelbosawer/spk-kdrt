@@ -19,7 +19,11 @@ class PengajuanController extends Controller
     {
         $kriteria = Kriteria::orderBy('id')->get();
         $alternatif = Alternatif::orderBy('id')->get();
-        $nilai = PengaduanMasyarakat::with('nilaiKasus')->get();
+       $nilai = PengaduanMasyarakat::with('nilaiKasus')
+        ->when(auth()->check() && auth()->user()->hasRole('masyarakat'), function ($query) {
+            $query->where('user_id', auth()->id());
+        })
+        ->get();
         $konversi = Konversi::pluck('bobot_w', 'nilai_gap'); // key = GAP
         $konversi_all = Konversi::orderBy('id')->get();
         $hasil = [];
@@ -112,8 +116,7 @@ class PengajuanController extends Controller
             ->paginate(7, ['*'], 'pengajuan_page')
             ->withQueryString();
 
-        return view(
-            'admin.pengajuan.index',
+        return view('admin.pengajuan.index',
             compact('kriteria', 'alternatif', 'nilai', 'konversi', 'hasil', 'konversi_all', 'ringkasan', 'pengajuan')
         );
     }
@@ -122,6 +125,12 @@ class PengajuanController extends Controller
     {
         $kasus = PengaduanMasyarakat::findOrFail($kasusId);
         $ringkasan = $this->hitungProfileMatching();
+        if (
+            auth()->user()?->hasRole('masyarakat') &&
+            (int) auth()->id() !== (int)  $kasus->user_id
+        ) {
+            return redirect()->route('dashboard.pengajuan');
+        }
         return view('admin.pengajuan.create-update-show', [
             'kasus'        => $kasus,
             'alternatifId' => $ringkasan[$kasusId]['rekomendasi'],

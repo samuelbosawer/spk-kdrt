@@ -12,9 +12,10 @@
                     <div class="table-responsive text-nowrap p-3">
                         <div class="row">
                             <div class="col-6 my-3">
-
+                              @if (Auth::user()->hasAnyRole(['petugas']))
                                 <a class="btn btn-primary" href="{{ route('dashboard.pendampingan.tambah') }}">Tambah Data
                                     Pendampingan <i class="bx bx-plus me-1"></i></a>
+                                @endif
                             </div>
                             <div class="col-6 my-3">
                                 @include('admin.layout.search')
@@ -39,9 +40,11 @@
                                 <tr>
                                     <td>{{ ++$i }}</td>
                                     <td class="fw-bolder"> <a
-                                            href="{{ route('dashboard.pendampingan', $data->id) }}">{{ $data->pengaduanMasyarakat->judul_pengaduan ?? ''}}</a>
+                                            href="{{ route('dashboard.pendampingan', $data->id) }}">{{ $data->pengaduanMasyarakat->judul_pengaduan ?? '' }}</a>
                                     </td>
-                                    <td class="text-center">{{ \Carbon\Carbon::parse($data->tanggal_pendampingan)->translatedFormat('d - m - Y') }}</td>
+                                    <td class="text-center">
+                                        {{ \Carbon\Carbon::parse($data->tanggal_pendampingan)->translatedFormat('d - m - Y') }}
+                                    </td>
                                     <td>{{ $data->petugasPendamping->nama_petugas ?? '' }}</td>
                                     <td>{{ $data->pengaduanMasyarakat->nama_korban ?? '' }}</td>
                                     <td>{{ $data->pengaduanMasyarakat->nama_pelaku ?? '' }}</td>
@@ -57,21 +60,22 @@
                                                     href="{{ route('dashboard.pendampingan.detail', $data->id) }}">
                                                     <i class="bx bx-box me-1"></i> Detail</a>
 
+                                                @if (Auth::user()->hasRole('petugas') && Auth::user()->id ==  $data->petugasPendamping->user_id)
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('dashboard.pendampingan.ubah', $data->id) }}"><i
+                                                            class="bx bx-edit-alt me-1"></i> Ubah</a>
 
-                                                <a class="dropdown-item"
-                                                    href="{{ route('dashboard.pendampingan.ubah', $data->id) }}"><i
-                                                        class="bx bx-edit-alt me-1"></i> Ubah</a>
+                                                    <form action="{{ route('dashboard.pendampingan.hapus', $data->id) }}"
+                                                        method="POST"
+                                                        onsubmit="return confirm('Yakin ingin menghapus data ini?');">
+                                                        @csrf
+                                                        @method('DELETE')
 
-                                                <form action="{{ route('dashboard.pendampingan.hapus', $data->id) }}"
-                                                    method="POST"
-                                                    onsubmit="return confirm('Yakin ingin menghapus data ini?');">
-                                                    @csrf
-                                                    @method('DELETE')
-
-                                                    <button type="submit" class="dropdown-item text-danger">
-                                                        <i class="bx bx-trash me-1"></i> Hapus
-                                                    </button>
-                                                </form>
+                                                        <button type="submit" class="dropdown-item text-danger">
+                                                            <i class="bx bx-trash me-1"></i> Hapus
+                                                        </button>
+                                                    </form>
+                                                @endif
                                             </div>
                                         </div>
 

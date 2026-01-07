@@ -9,12 +9,12 @@
                 <div class="row">
                     <div class="card mb-4">
                         <h5 class="card-header fw-bolder"><i class="menu-icon tf-icons bx bx-file"></i>
-                            {{ $judul ?? 'TAMBAH DATA PENGADUAN' }} </h5>
+                            {{ $judul ?? 'TAMBAH DATA PETUGAS' }} </h5>
                         <div class="card-body">
 
                             @if (Request::segment(4) == 'ubah' && Request::segment(2) == 'pengaduan')
-                                <form action="{{ route('dashboard.pengaduan.update', $data->id) }}"
-                                    enctype="multipart/form-data" method="POST">
+                                <form action="{{ route('dashboard.pengaduan.update', $data->id) }}" enctype="multipart/form-data"
+                                    method="POST">
                                     @csrf
                                     @method('PUT')
                                 @elseif (Request::segment(3) == 'tambah' && Request::segment(2) == 'pengaduan')
@@ -83,15 +83,15 @@
                                     <select name="jk_korban" id="jk_korban" class="form-select"
                                         @if (Request::segment(3) == 'detail') disabled @endif>
                                         <option selected hidden>Pilih</option>
-
-                                        <option value="Wanita"
-                                            {{ old('jk_korban', $data->jk_korban ?? '') == 'Wanita' ? 'selected' : '' }}>
-                                            Wanita
-                                        </option>
-                                        <option value="Pria"
-                                            {{ old('jk_korban', $data->jk_korban ?? '') == 'Pria' ? 'selected' : '' }}>
-                                            Pria
-                                        </option>
+                                      
+                                            <option value="Wanita"
+                                                {{ old('jk_korban', $data->jk_korban ?? '') == 'Wanita' ? 'selected' : '' }}>
+                                                Wanita
+                                            </option>
+                                             <option value="Pria"
+                                                {{ old('jk_korban', $data->jk_korban ?? '') == 'Pria' ? 'selected' : '' }}>
+                                                Pria
+                                            </option>
                                     </select>
 
                                     @error('jk_korban')
@@ -100,7 +100,7 @@
                                 </div>
 
 
-                                <div class="col-md-7 mb-3">
+                                  <div class="col-md-7 mb-3">
                                     <label class="form-label">Lokasi Kejadian</label>
                                     <textarea name="lokasi_kejadian" class="form-control" rows="3" @if (Request::segment(3) == 'detail') disabled @endif>{{ old('lokasi_kejadian', $data->lokasi_kejadian ?? '') }}</textarea>
                                     @error('lokasi_kejadian')
@@ -110,8 +110,7 @@
 
                                 <div class="col-md-7 mb-3">
                                     <label class="form-label">Deskripsi Singkat</label>
-                                    <textarea name="deskripsi_singkat" class="form-control" rows="3"
-                                        @if (Request::segment(3) == 'detail') disabled @endif>{{ old('deskripsi_singkat', $data->deskripsi_singkat ?? '') }}</textarea>
+                                    <textarea name="deskripsi_singkat" class="form-control" rows="3" @if (Request::segment(3) == 'detail') disabled @endif>{{ old('deskripsi_singkat', $data->deskripsi_singkat ?? '') }}</textarea>
                                     @error('deskripsi_singkat')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
@@ -133,7 +132,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-md-7 mb-3">
+                                 <div class="col-md-7 mb-3">
                                     <label for="no_hp" class="form-label">Nomor HP</label>
                                     <input type="text" class="form-control" id="no_hp" name="no_hp"
                                         value="{{ old('no_hp') ?? ($data->no_hp ?? '') }}"
@@ -145,54 +144,52 @@
 
 
                                 @if (isset($data))
-                                    <div class="col-md-7 mb-3">
-                                        <label for="user_id" class="form-label">User Pelapor</label>
-                                        <input type="text" disabled class="form-control" id="user_id"
-                                            name="user_id" value="{{ $data->user->email ?? '' }}"
-                                            @if (Request::segment(3) == 'detail') disabled @endif>
-                                        @error('user_id')
-                                            <small class="text-danger">{{ $message }}</small>
-                                        @enderror
-                                    </div>
+
+                                <div class="col-md-7 mb-3">
+                                    <label for="user_id" class="form-label">User Pelapor</label>
+                                    <input type="text" disabled class="form-control" id="user_id" name="user_id"
+                                        value="{{ $data->user->email ?? ''}}"
+                                        @if (Request::segment(3) == 'detail') disabled @endif>
+                                    @error('user_id')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                                    
                                 @else
-                                    <div class="col-md-7 mb-3">
-                                        <label for="user_id" class="form-label">User Pelapor</label>
-                                        <input type="text" disabled class="form-control" id="user_id"
-                                            name="user_id" value="{{ Auth::user()->email ?? '' }}"
-                                            @if (Request::segment(3) == 'detail') disabled @endif>
-                                        @error('user_id')
-                                            <small class="text-danger">{{ $message }}</small>
-                                        @enderror
-                                    </div>
+
+                                <div class="col-md-7 mb-3">
+                                    <label for="user_id" class="form-label">User Pelapor</label>
+                                    <input type="text" disabled class="form-control" id="user_id" name="user_id"
+                                        value="{{ Auth::user()->email ?? ''}}"
+                                        @if (Request::segment(3) == 'detail') disabled @endif>
+                                    @error('user_id')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+
                                 @endif
 
+                                 
 
 
 
 
 
-
-
+                               
 
                             </div>
                             <div class="col-md-12 mb-3 mx-auto">
-
-
-                                @if (!Auth::user()->hasAnyRole(['petugas', 'kepaladinas']))
-                                    @if (Request::segment(3) == 'detail')
-                                        {{-- @if (!Auth::user()->hasAnyRole(['mahasiswa', 'dosen'])) --}}
-                                        <a href="{{ route('dashboard.pengaduan.ubah', $data->id) }}"
-                                            class="btn btn-dark text-white">
-                                            <i class="menu-icon tf-icons bx bx-pencil"></i> UBAH DATA </a>
-                                        {{-- @endif --}}
-                                    @elseif ((Request::segment(3) == 'tambah' || Request::segment(4) == 'ubah') && Request::segment(2) == 'pengaduan')
-                                        <button type="submit" class="btn btn-primary text-white">SIMPAN <i
-                                                class="menu-icon tf-icons bx bx-save"></i></button>
-                                    @endif
+                                @if (Request::segment(3) == 'detail')
+                                {{-- @if(!Auth::user()->hasAnyRole(['mahasiswa', 'dosen'])) --}}
+                                    <a href="{{ route('dashboard.pengaduan.ubah', $data->id) }}" class="btn btn-dark text-white">
+                                        <i class="menu-icon tf-icons bx bx-pencil"></i> UBAH DATA </a>
+                                {{-- @endif --}}
+                                @elseif ((Request::segment(3) == 'tambah' || Request::segment(4) == 'ubah') && Request::segment(2) == 'pengaduan')
+                                    <button type="submit" class="btn btn-primary text-white">SIMPAN <i
+                                            class="menu-icon tf-icons bx bx-save"></i></button>
                                 @endif
 
-                                <a href="{{ route('dashboard.pengaduan') }}" class="btn btn-dark text-white"> KEMBALI
-                                </a>
+                                <a href="{{ route('dashboard.pengaduan') }}" class="btn btn-dark text-white"> KEMBALI </a>
 
                             </div>
 

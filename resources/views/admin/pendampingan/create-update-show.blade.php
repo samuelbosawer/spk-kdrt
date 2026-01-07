@@ -1,100 +1,143 @@
 @extends('admin.layout.tamplate')
 
 @section('content')
-   <div class="container-xxl flex-grow-1 container-p-y">
+    <div class="container-xxl flex-grow-1 container-p-y">
         {{-- <h4 class="text-muted py-3 mb-4"><a href="/{{ Request::segment(1).'/'.Request::segment(2) }}" class=" fw-light">{{  Request::segment(2) }}</a> </h4> --}}
 
         <div class="row ">
             <div class="col-12">
+                <div class="row">
+                    <div class="card mb-4">
+                        <h5 class="card-header fw-bolder"><i class="menu-icon tf-icons bx bx-message"></i>
+                            {{ $judul ?? 'TAMBAH DATA PENDAMPINGAN' }} </h5>
+                        <div class="card-body">
 
-                <div class="card">
-                    <h5 class="card-header">Data Pendampingan </h5>
-                    <div class="table-responsive text-nowrap p-3">
-                        <div class="row">
-                            <div class="col-6 my-3">
+                            @if (Request::segment(4) == 'ubah' && Request::segment(2) == 'pendampingan')
+                                <form action="{{ route('dashboard.pendampingan.update', $data->id) }}"
+                                    enctype="multipart/form-data" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                @elseif (Request::segment(3) == 'tambah' && Request::segment(2) == 'pendampingan')
+                                    <form action="{{ route('dashboard.pendampingan.store') }}" enctype="multipart/form-data"
+                                        method="POST">
+                                        @csrf
+                                    @else
+                                        <form action="">
+                            @endif
 
-                                <a class="btn btn-primary" href="{{ route('dashboard.pendampingan.tambah') }}">Tambah Data
-                                    Pendampingan <i class="bx bx-plus me-1"></i></a>
+                            <div class="row">
+
+
+
+                                <div class="col-md-7 mb-3">
+                                    <label for="tanggal_pendampingan" class="form-label">Tanggal Pendampingan</label>
+                                    <input type="date" class="form-control" id="tanggal_pendampingan"
+                                        name="tanggal_pendampingan"
+                                        value="{{ old('tanggal_pendampingan') ?? ($data->tanggal_pendampingan ?? '') }}"
+                                        @if (Request::segment(3) == 'detail') disabled @endif>
+                                    @error('tanggal_pendampingan')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+
+
+
+                                <div class="col-md-7 mb-3">
+                                    <label class="form-label">Petugas</label>
+                                    <select name="petugas_pendamping_id" class="form-select"
+                                        @if (Request::segment(3) == 'detail') disabled @endif>
+                                        <option selected value="" hidden>Pilih</option>
+
+                                        @foreach ($petugas as $p)
+                                            <option value="{{ $p->id }}"
+                                                {{ old('petugas_pendamping_id', $data->petugas_pendamping_id ?? '') == $p->id ? 'selected' : '' }}>
+                                                {{ $p->nama_petugas }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+
+                                     @error('petugas_pendamping_id')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+
+                                <div class="col-md-7 mb-3">
+                                    <label class="form-label">Pengaduan</label>
+                                    <select name="pengaduan_masyarakat_id" class="form-select"
+                                        @if (Request::segment(3) == 'detail') disabled @endif>
+                                        <option selected value="" hidden>Pilih</option>
+
+                                        @foreach ($pengaduan as $p)
+                                            <option value="{{ $p->id }}"
+                                                {{ old('pengaduan_masyarakat_id', $data->pengaduan_masyarakat_id ?? '') == $p->id ? 'selected' : '' }}>
+                                                {{ $p->judul_pengaduan }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+
+                                     @error('pengaduan_masyarakat_id')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>  
+                                
+                                <div class="col-md-7 mb-3">
+                                    <label for="bukti" class="form-label">Lampiran </label>
+                                    <p>
+                                        @if (isset($data) && $data->bukti)
+                                            <a href="{{ asset('storage/' . $data->bukti) }}" target="_blank"
+                                                class="btn btn-dark btn-sm">Lihat File</a>
+                                        @endif
+                                    </p>
+                                    <input type="file" class="form-control" id="bukti" name="bukti"
+                                        value="{{ old('bukti') ?? ($data->bukti ?? '') }}"
+                                        @if (Request::segment(3) == 'detail') disabled @endif>
+                                    @error('bukti')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+
+                                 <div class="col-md-7 mb-3">
+                                    <label class="form-label">Keterangan</label>
+                                    <textarea name="keterangan" class="form-control" rows="3" @if (Request::segment(3) == 'detail') disabled @endif>{{ old('keterangan', $data->keterangan ?? '') }}</textarea>
+                                    @error('keterangan')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+
+
+
+
+                                
+
+
+
+
+
+
+
                             </div>
-                            <div class="col-6 my-3">
-                                @include('admin.layout.search')
+                            <div class="col-md-12 mb-3 mx-auto">
+                                @if (Request::segment(3) == 'detail')
+                                   @if (Auth::user()->hasRole('petugas') && Auth::user()->id ==  $data->petugasPendamping->user_id)
+                                    <a href="{{ route('dashboard.pendampingan.ubah', $data->id) }}"
+                                        class="btn btn-dark text-white">
+                                        <i class="menu-icon tf-icons bx bx-pencil"></i> UBAH DATA </a>
+                                    @endif
+                                @elseif ((Request::segment(3) == 'tambah' || Request::segment(4) == 'ubah') && Request::segment(2) == 'pendampingan')
+                                    <button type="submit" class="btn btn-primary text-white">SIMPAN <i
+                                            class="menu-icon tf-icons bx bx-save"></i></button>
+                                @endif
+
+                                <a href="{{ route('dashboard.pendampingan') }}" class="btn btn-dark text-white"> KEMBALI
+                                </a>
+
                             </div>
 
+
+                            </form>
                         </div>
                     </div>
-                    <table class="table table-bordered">
-                        <thead class="">
-                            <tr class="bg-primary ">
-                                <th class="text-white text-center  p-3 fw-bolder" width="10px" hight="10px">No</th>
-                                <th class="text-white text-center  p-3 fw-bolder">Pengaduan</th>
-                                <th class="text-white text-center  p-3 fw-bolder">Tanggal Pendampingan</th>
-                                <th class="text-white text-center  p-3 fw-bolder">Petugas</th>
-                                <th class="text-white text-center  p-3 fw-bolder">Korban</th>
-                                <th class="text-white text-center  p-3 fw-bolder">Pelaku</th>
-                                <th class="text-white text-center  p-3 fw-bolder"></th>
-                            </tr>
-                        </thead>
-                        <tbody class="table-border-bottom-0">
-                            @forelse($datas as $data)
-                                <tr>
-                                    <td>{{ ++$i }}</td>
-                                    <td class="fw-bolder"> <a
-                                            href="{{ route('dashboard.pendampingan', $data->id) }}">{{ $data->pengaduanMasyarakat->judul_pengaduan ?? ''}}</a>
-                                    </td>
-                                    <td class="text-center">{{ \Carbon\Carbon::parse($data->tanggal_pendampingan)->translatedFormat('d - m - Y') }}</td>
-                                    <td>{{ $data->petugasPendamping->nama_petugas ?? '' }}</td>
-                                    <td>{{ $data->pengaduanMasyarakat->nama_korban ?? '' }}</td>
-                                    <td>{{ $data->pengaduanMasyarakat->nama_pelaku ?? '' }}</td>
 
-                                    <td class="text-center">
-                                        <div class="dropdown">
-                                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                                data-bs-toggle="dropdown">
-                                                <i class="bx bx-dots-vertical-rounded"></i>
-                                            </button>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item"
-                                                    href="{{ route('dashboard.pendampingan.detail', $data->id) }}">
-                                                    <i class="bx bx-box me-1"></i> Detail</a>
-
-
-                                                <a class="dropdown-item"
-                                                    href="{{ route('dashboard.pendampingan.ubah', $data->id) }}"><i
-                                                        class="bx bx-edit-alt me-1"></i> Ubah</a>
-
-                                                <form action="{{ route('dashboard.pendampingan.hapus', $data->id) }}"
-                                                    method="POST"
-                                                    onsubmit="return confirm('Yakin ingin menghapus data ini?');">
-                                                    @csrf
-                                                    @method('DELETE')
-
-                                                    <button type="submit" class="dropdown-item text-danger">
-                                                        <i class="bx bx-trash me-1"></i> Hapus
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </div>
-
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="6" class="text-center"> Data tidak ditemukan</td>
-                                </tr>
-                            @endforelse
-
-
-
-
-                        </tbody>
-                    </table>
-                    <div class=" mt-3">
-                        {{ $datas->links() }}
-                    </div>
                 </div>
             </div>
-            <!-- Bootstrap Table with Header - Light -->
-
-        </div>
-    </div>
- @endsection
+        @endsection
