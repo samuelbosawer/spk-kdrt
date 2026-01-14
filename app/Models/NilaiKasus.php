@@ -11,7 +11,7 @@ class NilaiKasus extends Model
 
     protected $fillable = [
         'pengaduan_masyarakat_id',
-        'alternatif_id',
+        'kriteria_id',
         'nilai_kasus',
     ];
 
@@ -23,9 +23,9 @@ class NilaiKasus extends Model
         return $this->belongsTo(PengaduanMasyarakat::class, 'pengaduan_masyarakat_id');
     }
 
-    // Relasi ke Alternatif
-    public function alternatif()
+    // Relasi ke kriteria
+    public function kriteria()
     {
-        return $this->belongsTo(Alternatif::class, 'alternatif_id');
+        return $this->belongsTo(Kriteria::class, 'kriteria_id');
     }
 }

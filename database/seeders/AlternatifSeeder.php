@@ -14,7 +14,7 @@ class AlternatifSeeder extends Seeder
     public function run(): void
     {
         $data = [
-            'P2TP2A (Pusat Pelayanan Terpadu Pemberdayaan Perempuan dan Anak)',
+            'P2TP2A',
             'Polisi',
             'Pengadilan',
             'Kekeluargaan',

@@ -12,7 +12,7 @@
                     <div class="table-responsive text-nowrap p-3">
                         <div class="row">
                             <div class="col-6 my-3">
-                             @if (!Auth::user()->hasAnyRole(['petugas', 'kepaladinas']))
+                             @if (!Auth::user()->hasAnyRole(['petugas', 'kepaladinas','admindinas']))
                                     <a class="btn btn-primary" href="{{ route('dashboard.pengaduan.tambah') }}">Tambah Data
                                         Pengaduan <i class="bx bx-plus me-1"></i></a>
                                 @endif

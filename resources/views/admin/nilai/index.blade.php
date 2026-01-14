@@ -26,9 +26,9 @@
                                 <tr class="bg-primary">
                                     <th class="text-white text-center">Kasus</th>
 
-                                    @foreach ($alternatifs as $alt)
+                                    @foreach ($kriteria as $k)
                                         <th class="text-white text-center">
-                                            C{{ $alt->id }}
+                                            C{{ $k->id }}
                                         </th>
                                     @endforeach
 
@@ -45,14 +45,14 @@
                                         K{{ $data->id }}
                                     </td>
 
-                                    {{-- Loop Alternatif (C1–C4) --}}
-                                    @foreach ($alternatifs as $alt)
+                                    {{-- Loop kriteria (C1–C4) --}}
+                                    @foreach ($kriteria as $k)
                                         <td class="text-center">
-                                            {{ optional($data->nilaiKasus->where('alternatif_id', $alt->id)->first())->nilai_kasus ?? '-' }}
+                                            {{ optional($data->nilaiKasus->where('kriteria_id', $k->id)->first())->nilai_kasus ?? '-' }}
                                         </td>
                                     @endforeach
                                     @php
-                                        $nilai = $data->nilaiKasus->where('alternatif_id', $alt->id)->first();
+                                        $nilai = $data->nilaiKasus->where('kriteria_id', $k->id)->first();
                                     @endphp
 
                                     {{-- Aksi --}}
@@ -89,7 +89,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="{{ 3 + $alternatifs->count() }}" class="text-center">
+                                    <td colspan="{{ 3 + $kriteria->count() }}" class="text-center">
                                         Data tidak ditemukan
                                     </td>
                                 </tr>

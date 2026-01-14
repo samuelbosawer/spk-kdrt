@@ -17,3 +17,10 @@
            <div data-i18n="Analytics">Pendampingan</div>
        </a>
    </li>
+
+      <li class="menu-item @if (Request::segment(1) == 'dashboard' && Request::segment(2) == 'nilai') active @endif">
+       <a href="{{ route('dashboard.nilai') }}" class="menu-link">
+           <i class="menu-icon tf-icons bx bx-bar-chart-alt-2"></i>
+           <div data-i18n="Analytics"> Nilai Pengaduan</div>
+       </a>
+   </li>

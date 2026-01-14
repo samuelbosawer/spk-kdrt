@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Alternatif;
+use App\Models\Kriteria;
 use App\Models\NilaiKasus;
 use App\Models\PengaduanMasyarakat;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -15,19 +16,19 @@ class NilaiController extends Controller
     public function index(Request $request)
     {
 
-        $alternatifs = Alternatif::orderBy('id')->get();
+        $kriteria = Kriteria::orderBy('id')->get();
         $datas = PengaduanMasyarakat::with('nilaiKasus')->get();
 
-        return view('admin.nilai.index', compact('datas', 'alternatifs'));
+        return view('admin.nilai.index', compact('datas', 'kriteria'));
     }
 
     // Tampilkan form tambah data
     public function create()
     {
-        $alternatifs = Alternatif::orderBy('id')->get();
+        $kriteria = Kriteria::orderBy('id')->get();
         $pengaduan = PengaduanMasyarakat::get();
 
-        return view('admin.nilai.create-update-show', compact('alternatifs', 'pengaduan'));
+        return view('admin.nilai.create-update-show', compact('kriteria', 'pengaduan'));
     }
 
     // Simpan data baru
@@ -35,15 +36,15 @@ class NilaiController extends Controller
     {
         $request->validate([
             'pengaduan_masyarakat_id' => 'numeric|required|unique:nilai_kasuses,pengaduan_masyarakat_id',
-            'alternatif_id'           => 'required|array',
+            'kriteria_id'           => 'required|array',
             'nilai_kasus'             => 'required|array',
             'nilai_kasus.*'           => 'required',
         ]);
 
-        foreach ($request->alternatif_id as $index => $alternatifId) {
+        foreach ($request->kriteria_id as $index => $alternatifId) {
             NilaiKasus::create([
                 'pengaduan_masyarakat_id'   => $request->pengaduan_masyarakat_id,
-                'alternatif_id'             => $alternatifId,
+                'kriteria_id'             => $alternatifId,
                 'nilai_kasus'           => $request->nilai_kasus[$index],
             ]);
         };

@@ -48,22 +48,22 @@
                                 </div>
                             </div>
 
-                            @foreach ($alternatifs as $index => $a)
+                            @foreach ($kriteria as $index => $k)
                                 <div class="row mt-3 p-3 rounded shadow">
 
                                     <div class="col-md-6 mb-3">
-                                        <label class="form-label ">Alternatif</label>
-                                        <input type="text" class="form-control" value="{{ $a->alternatif }}" disabled>
+                                        <label class="form-label ">Kriteria</label>
+                                        <input type="text" class="form-control" value="{{ $k->kriteria }}" disabled>
 
-                                        <input type="hidden" name="alternatif_id[]" value="{{ $a->id }}">
+                                        <input type="hidden" name="kriteria_id[]" value="{{ $k->id }}">
 
-                                        @error('alternatif_id.' . $loop->index)
+                                        @error('kriteria_id.' . $loop->index)
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
 
                                     <div class="col-md-6 mb-3">
-                                        <label class="form-label ">Nilai Ideal {{ $a->alternatif }}</label>
+                                        <label class="form-label ">Nilai Ideal {{ $k->kriteria }}</label>
                                         <input type="text" class="form-control" name="nilai_kasus[]"
                                             value="{{ old('nilai_kasus.' . $index) }}"
                                             @if (Request::segment(3) == 'detail') disabled @endif>

@@ -43,6 +43,10 @@ class PengaduanController extends Controller
             ->with('i', (request()->input('page', 1) - 1) * 7);
     }
 
+    public function spk($id){
+        
+    }
+
     // Tampilkan form tambah data
     public function create()
     {

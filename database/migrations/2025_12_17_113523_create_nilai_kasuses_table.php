@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('nilai_kasuses', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('pengaduan_masyarakat_id');
-            $table->unsignedBigInteger('alternatif_id');
+            $table->unsignedBigInteger('kriteria_id');
             $table->string('nilai_kasus');
         });
     }

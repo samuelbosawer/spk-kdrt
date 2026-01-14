@@ -45,10 +45,13 @@ class NilaiKasusSeeder extends Seeder
             [5, 4, 2],
         ];
 
+
+        
+
         foreach ($data as $item) {
             NilaiKasus::create([
                 'pengaduan_masyarakat_id' => $item[0],
-                'alternatif_id' => $item[1],
+                'kriteria_id' => $item[1],
                 'nilai_kasus' => $item[2],
             ]);
         }
