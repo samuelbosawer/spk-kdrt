@@ -123,9 +123,7 @@ class PendampinganController extends Controller
     {
         $petugas = PentugasPendamping::orderBy('id', 'desc')->get();
         $pengaduan = PengaduanMasyarakat::orderBy('id', 'desc')->get();
-
         $data = PendampinganKasus::where('id', $id)->first();
-
         $judul = 'UBAH DATA PENDAMPINGAN';
 
 
