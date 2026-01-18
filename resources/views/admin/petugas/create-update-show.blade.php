@@ -90,7 +90,7 @@
                                    @if (!Auth::user()->hasAnyRole(['petugas', 'kepaladinas']))
                                 @if (isset($data))
 
-                                   <div class="col-md-10">
+                                <div class="col-md-10">
                                     <p class="p-2 rounded bg-primary text-white fw-bold">AKSES AKUN PETUGAS</p>
                                 </div>
 

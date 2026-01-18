@@ -22,6 +22,7 @@ class PengaduanMasyarakat extends Model
         'bukti_gambar',
         'tanggal_kejadian',
         'no_hp',
+        'status',
         'user_id'
     ];
 

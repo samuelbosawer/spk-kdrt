@@ -23,7 +23,7 @@ class PendampinganController extends Controller
             'pengaduanMasyarakat.user'
         ])
 
-            // 🔐 Filter jika login sebagai masyarakat
+            // Filter jika login sebagai masyarakat
             ->when(auth()->check() && auth()->user()->hasRole('masyarakat'), function ($query) {
                 $query->whereHas('pengaduanMasyarakat', function ($q) {
                     $q->where('user_id', auth()->id());
@@ -72,7 +72,7 @@ class PendampinganController extends Controller
     {
 
         $petugas = PentugasPendamping::orderBy('id', 'desc')->get();
-        $pengaduan = PengaduanMasyarakat::orderBy('id', 'desc')->get();
+        $pengaduan = PengaduanMasyarakat::where('status','Diterima')->orderBy('id', 'desc')->get();
         if ((Auth::user()->hasRole('petugas'))) {
             $petugas = PentugasPendamping::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->get();
         }

@@ -150,7 +150,7 @@
 
             <p class="fw-bold mt-4">Kasus K{{ $kasus->id }}</p>
 
-            <table class="table table-bordered mb-4">
+        <table class="table table-bordered mb-4">
                 <thead>
                     <tr class="bg-primary text-white text-center">
                         <th>Alternatif</th>

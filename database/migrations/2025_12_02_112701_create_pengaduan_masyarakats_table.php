@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('bukti_gambar')->nullable();
             $table->date('tanggal_kejadian');
             $table->string('no_hp')->nullable();
+            $table->string('status')->nullable();
             $table->unsignedBigInteger('user_id'); // default = 4
 
             // relasi ke user

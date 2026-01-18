@@ -17,7 +17,7 @@ class NilaiController extends Controller
     {
 
         $kriteria = Kriteria::orderBy('id')->get();
-        $datas = PengaduanMasyarakat::with('nilaiKasus')->get();
+        $datas = PengaduanMasyarakat::with('nilaiKasus')->where('status','Diterima')->get();
 
         return view('admin.nilai.index', compact('datas', 'kriteria'));
     }
@@ -26,7 +26,7 @@ class NilaiController extends Controller
     public function create()
     {
         $kriteria = Kriteria::orderBy('id')->get();
-        $pengaduan = PengaduanMasyarakat::get();
+        $pengaduan = PengaduanMasyarakat::with('nilaiKasus')->where('status','Diterima')->get();
 
         return view('admin.nilai.create-update-show', compact('kriteria', 'pengaduan'));
     }

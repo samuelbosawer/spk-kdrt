@@ -32,7 +32,7 @@ class DashboardController extends Controller
             'petugasPendamping',
             'pengaduanMasyarakat.user'
         ])
-            // 🔐 Filter jika login sebagai masyarakat
+            // Filter jika login sebagai masyarakat
             ->when(auth()->check() && auth()->user()->hasRole('masyarakat'), function ($query) {
                 $query->whereHas('pengaduanMasyarakat', function ($q) {
                     $q->where('user_id', auth()->id());

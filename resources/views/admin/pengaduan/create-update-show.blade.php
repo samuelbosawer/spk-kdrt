@@ -167,8 +167,28 @@
                                 @endif
 
 
+                                @if (Auth::user()->hasAnyRole(['admindinas']))
+                                    <div class="col-md-7 mb-3">
+                                        <label for="status" class="form-label">Status</label>
+                                        <select name="status" id="status" class="form-select"
+                                            @if (Request::segment(3) == 'detail') disabled @endif>
+                                            <option selected hidden>Pilih</option>
 
+                                            <option value="Diterima"
+                                                {{ old('status', $data->status ?? '') == 'Diterima' ? 'selected' : '' }}>
+                                                Diterima
+                                            </option>
+                                            <option value="Tidak diterima"
+                                                {{ old('status', $data->status ?? '') == 'Tidak diterima' ? 'selected' : '' }}>
+                                                Tidak diterima
+                                            </option>
+                                        </select>
 
+                                        @error('jk_korban')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                @endif
 
 
 

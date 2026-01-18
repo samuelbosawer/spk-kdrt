@@ -30,10 +30,10 @@ class PengaduanController extends Controller
                         ->orWhere('jk_korban', 'LIKE', "%{$s}%")
                         ->orWhere('lokasi_kejadian', 'LIKE', "%{$s}%")
                         ->orWhere('deskripsi_singkat', 'LIKE', "%{$s}%")
+                        ->orWhere('status', 'LIKE', "%{$s}%")
                         ->orWhere('tanggal_kejadian', 'LIKE', "%{$s}%");
                 });
             })
-
             ->orderBy('id', 'desc')
             ->paginate(7)
             ->withQueryString();
@@ -44,7 +44,6 @@ class PengaduanController extends Controller
     }
 
     public function spk($id){
-        
     }
 
     // Tampilkan form tambah data
@@ -64,9 +63,10 @@ class PengaduanController extends Controller
             'jk_korban'     => 'required',
             'lokasi_kejadian'     => 'required',
             'deskripsi_singkat'     => 'required',
-            'bukti_gambar'          => 'required|file|mimes:pdf,doc,docx,jpg,png',
+            'bukti_gambar'          => 'file|mimes:pdf,doc,docx,jpg,png',
             'tanggal_kejadian'         => 'required',
             'no_hp'         => 'required',
+            'status'         => 'string|nullable',
         ]);
 
         // Upload file SK
@@ -113,6 +113,7 @@ class PengaduanController extends Controller
     // Update data
     public function update(Request $request, $id)
     {
+       
         $data = PengaduanMasyarakat::findOrFail($id);
         $validated = $request->validate([
             'judul_pengaduan' => 'required|max:255',
@@ -122,10 +123,12 @@ class PengaduanController extends Controller
             'jk_korban'     => 'required',
             'lokasi_kejadian'     => 'required',
             'deskripsi_singkat'     => 'required',
-            'bukti_gambar'          => 'required|file|mimes:pdf,doc,docx,jpg,png',
+            'bukti_gambar'          => 'file|mimes:pdf,doc,docx,jpg,png',
             'tanggal_kejadian'         => 'required',
             'no_hp'         => 'required',
+            'status'         => 'nullable',
         ]);
+
 
 
         // Jika ada upload file baru
@@ -144,6 +147,7 @@ class PengaduanController extends Controller
         }
 
         $data->update($validated);
+
         Alert::success('Berhasil', 'Ubah data berhasil');
         return redirect()->route('dashboard.pengaduan');
     }

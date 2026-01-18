@@ -33,7 +33,7 @@
                                 <th class="text-white text-center  p-3 fw-bolder">Judul</th>
                                 <th class="text-white text-center  p-3 fw-bolder">Tanggal Kejadian</th>
                                 <th class="text-white text-center  p-3 fw-bolder">Pengadu</th>
-                                <th class="text-white text-center  p-3 fw-bolder">Pelaku</th>
+                                <th class="text-white text-center  p-3 fw-bolder">Status</th>
                                 <th class="text-white text-center  p-3 fw-bolder"></th>
                             </tr>
                         </thead>
@@ -48,7 +48,12 @@
                                     </td>
 
                                     <td>{{ $data->nama_pengadu }}</td>
-                                    <td>{{ $data->nama_pelaku }}</td>
+                                    <td>   @if($data->status == null)
+                                           Belum diterima
+                                        @else
+                                        {{ $data->status }}
+                                        @endif
+                                    </td>
 
                                     <td class="text-center">
                                         <div class="dropdown">
@@ -76,6 +81,11 @@
                                                         </button>
                                                     </form>
                                                 @endif
+                                                    @if($data->status == 'Diterima')    
+                                                  <a class="dropdown-item"
+                                                    href="{{ route('dashboard.rekomendasi.detail', $data->id) }}">
+                                                    <i class="bx bx-star me-1"></i> Rekomendasi</a>
+                                                    @endif
                                             </div>
                                         </div>
 

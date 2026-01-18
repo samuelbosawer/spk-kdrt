@@ -24,6 +24,7 @@ class PengaduanMasyrakatSeeder extends Seeder
             'bukti_gambar' => '',
             'tanggal_kejadian' => '2025-01-01',
             'no_hp' => '081234567890',
+            'status' => 'Diterima',
             'user_id' => 4
         ]);
 
@@ -39,6 +40,7 @@ class PengaduanMasyrakatSeeder extends Seeder
             'bukti_gambar' => '',
             'tanggal_kejadian' => '2025-01-05',
             'no_hp' => '081234560001',
+            'status' => 'Diterima',
             'user_id' => 5
         ]);
 
@@ -53,6 +55,7 @@ class PengaduanMasyrakatSeeder extends Seeder
             'bukti_gambar' => '',
             'tanggal_kejadian' => '2025-01-10',
             'no_hp' => '081234560002',
+            'status' => 'Diterima',
             'user_id' => 6
         ]);
 
@@ -67,6 +70,7 @@ class PengaduanMasyrakatSeeder extends Seeder
             'bukti_gambar' => '',
             'tanggal_kejadian' => '2025-01-15',
             'no_hp' => '081234560003',
+            'status' => 'Diterima',
             'user_id' => 7
         ]);
 
@@ -81,6 +85,7 @@ class PengaduanMasyrakatSeeder extends Seeder
             'bukti_gambar' => '',
             'tanggal_kejadian' => '2025-01-20',
             'no_hp' => '081234560004',
+            'status' => 'Diterima',
             'user_id' => 8
         ]);
     }
