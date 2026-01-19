@@ -153,15 +153,15 @@
         <table class="table table-bordered mb-4">
                 <thead>
                     <tr class="bg-primary text-white text-center">
-                        <th>Alternatif</th>
+                        <th class="text-white">Alternatif</th>
 
                         @foreach ($kriteria as $k)
-                            <th>C{{ $k->id }}</th>
+                            <th class="text-white">C{{ $k->id }}</th>
                         @endforeach
 
-                        <th>CF</th>
-                        <th>SF</th>
-                        <th>Nilai Akhir</th>
+                        <th class="text-white">CF</th>
+                        <th class="text-white">SF</th>
+                        <th class="text-white">Nilai Akhir</th>
                     </tr>
                 </thead>
 

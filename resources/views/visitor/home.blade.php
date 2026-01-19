@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>SI KDRT </title>
+    <title>SPK KDRT </title>
     <meta name="description" content="">
     <meta name="keywords" content="">
 
@@ -50,7 +50,7 @@
                 <img src="{{ asset('assets/img/logo.png') }}" alt="">
 
 
-                <h1 class="sitename">SI KDRT</h1>
+                <h1 class="sitename">SPK KDRT</h1>
             </a>
 
             <nav id="navmenu" class="navmenu">

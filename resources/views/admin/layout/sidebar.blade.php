@@ -5,7 +5,7 @@
                  <img src="{{ asset('assets/img/logo.png') }}" width="40px" class="img-fluid" alt=""
                      srcset="">
              </span>
-             <span class=" menu-text fw-bolder ms-2">SPK-KDRT</span>
+             <span class=" menu-text fw-bolder ms-2">SPK KDRT</span>
          </a>
 
          <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
