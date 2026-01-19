@@ -16,7 +16,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>SPK-KDRT | Sistem Pendukung Keputusan KDRT</title>
+    <title>SPK KDRT | Sistem Pendukung Keputusan KDRT</title>
 
     <meta name="description" content="" />
 
@@ -66,7 +66,7 @@
               <!-- Logo -->
                 <div class="text-center">
                    <img width="150px" class="p-3" src="{{ asset('assets/img/logo.png') }}" alt="" srcset="">
-                       <h3 class="fw-bold">SPK-KDRT <br> Kabupaten Mimika</h3>
+                       <h3 class="fw-bold">SPK KDRT <br> Kabupaten Mimika</h3>
                 </div>
               <!-- /Logo -->
               {{-- <h4 class="mb-2 mt-5 text-center">Selamat Datang</h4> --}}
