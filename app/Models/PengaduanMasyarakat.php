@@ -44,15 +44,14 @@ class PengaduanMasyarakat extends Model
 
 
     public function pendampinganKasus()
-{
-    return $this->hasMany(PendampinganKasus::class, 'pengaduan_masyarakat_id');
-}
+    {
+        return $this->hasMany(PendampinganKasus::class, 'pengaduan_masyarakat_id');
+    }
 
 
-public function pendampinganTerakhir()
-{
-    return $this->hasOne(PendampinganKasus::class, 'pengaduan_masyarakat_id')
-                ->latestOfMany('tanggal_pendampingan');
-}
-
+    public function pendampinganTerakhir()
+    {
+        return $this->hasOne(PendampinganKasus::class, 'pengaduan_masyarakat_id')
+            ->latestOfMany('tanggal_pendampingan');
+    }
 }
