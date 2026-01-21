@@ -101,6 +101,12 @@
         <td>:</td>
         <td>{{ $data->keterangan ?? '-' }}</td>
     </tr>
+
+      <tr>
+        <td>Petugas</td>
+        <td>:</td>
+        <td>{{ optional($data->pengaduan->pendampinganKasus()->latest('tanggal_pendampingan')->first()?->petugasPendamping)->nama_petugas ?? '' }}</td>
+    </tr>
 </table>
 
 {{-- DATA PENGADUAN --}}
